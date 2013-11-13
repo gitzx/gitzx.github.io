@@ -1,0 +1,16 @@
+markdown: rdiscount
+permalink: /:title/
+url: http://gitzx.github.io
+name: gitzx.github.io
+author: gitzx
+qq: 123456
+email: crisising@163.com
+duoshuo: crisising
+beian: 
+cnzz: 
+weibo: 123456
+github: gitzx
+pygments: true
+safe: true
+paginate: 20
+about: "这里是 zx 的个人博客，<br /><br />"
