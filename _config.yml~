@@ -2,7 +2,7 @@ markdown: rdiscount
 permalink: /:title/
 url: http://gitzx.github.io
 name: gitzx.github.io
-author: zhangxiang
+author: zx
 email: crisising@163.com
 duoshuo: gitzx
 cnzz: 
