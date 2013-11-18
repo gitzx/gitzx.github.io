@@ -3,8 +3,8 @@ date: 2013-11-18 18:44:30+00:00
 layout: post
 title: IOS程序打包
 thread: 01
-categories: IOS
-tags:  IOS
+categories: ios
+tags:  ios
 ---
 
 **Ios程序包分为：**
