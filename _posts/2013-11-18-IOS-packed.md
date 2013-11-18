@@ -2,7 +2,7 @@
 date: 2013-11-18 18:44:30+00:00
 layout: post
 title: IOS程序打包
-thread: 164
+thread: 01
 categories: IOS
 tags:  IOS
 ---
@@ -20,10 +20,10 @@ tags:  IOS
 **一般的IOS打包方法**
 
 
-- （1)	appstore 二进制程序包
+- (1)	appstore 二进制程序包
 
     打开你的项目，进入“Edit Project Settings”，进Configuration页面，选中Release点击下面的Duplicate，复制一个新的配置项出来，命名为Distribution。然后进入Build页面，顶上的Configuration下拉框选中Distribution，下面的Code Signing Identity里面的Any iPhone OS Device后面对应的值选中你的那个Distribution的证书。然后点击“Build”–> “Build” 就可以编译程序了。编译成功后，你就可以在相应的build目录下看到一个.app的二进制文件。
-- 2)	渠道ipa包
+- (2)	渠道ipa包
 
 	根据以上步骤同样配置好Distribution 证书 ，然后点击 “Build”–> “Build and Archive” 就可以编译程序了。接着打开“Window””Organizer” 左边栏中选择”ARCHIVED APPLICATIONS” 然后再右侧列表中选中刚才编译的程序包 再点击右侧右边顶部的”Share”按钮 保存到磁盘即可。就会生成一个.ipa的文件 即为渠道包。注意：以上运行设备必须选择“Deveice“
   
