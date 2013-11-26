@@ -33,6 +33,14 @@ SocketServer提供了4个基本的服务类：
 - 实例化一个server class对象，并将服务的地址和之前创建的request handler class传递给它。
 - 调用server class对象的handle_request() 或 serve_forever()方法来开始处理请求。
 
+  BaseRequestHandler 子类方法可以接触到下面三个变量：
+
+- request: 一个 socket 对象代表着客户端的请求。在 MirrorServer 例子里 socket.accept 也返回这样一个对象。
+
+- rfile: 这个文件对应着从 socket 进来的数据。等同于调用 request.makefile(‘rb’) 。
+
+- wfile: 这个文件对应着从 socket 发送的数据。等同于调用 request.makefile(‘wb’)。
+
 ###处理多连接：###
 
 有3种主要的方法能处理多个连接：分叉（foking）、线程（threading）和异步I/O(asynthronous I/O).
