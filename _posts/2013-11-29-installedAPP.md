@@ -20,47 +20,47 @@ iOS 上的应用程序可以通过向其它应用程序发送一个URL 格式的
 
 MobileInstallation cache随着SpringBoard启动而更新，包括所有已安装APP的安装信息。
 
-BOOL APCheckIfAppInstalled(NSString *bundleIdentifier)
-{
-    static NSString *const cacheFileName = @"com.apple.mobile.installation.plist";
-    NSString *relativeCachePath = [[@"Library" stringByAppendingPathComponent: @"Caches"] stringByAppendingPathComponent: cacheFileName];
-    NSDictionary *cacheDict = nil;
-    NSString *path = nil;
-    // Loop through all possible paths the cache could be in
-    for (short i = 0; 1; i++)
-    {
-        
-        switch (i) {
-            case 0: // Jailbroken apps will find the cache here; their home directory is /var/mobile
-                path = [NSHomeDirectory() stringByAppendingPathComponent: relativeCachePath];
-                break;
-            case 1: // App Store apps and Simulator will find the cache here; home (/var/mobile/) is 2 directories above sandbox folder
-                path = [[NSHomeDirectory() stringByAppendingPathComponent: @"../.."] stringByAppendingPathComponent: relativeCachePath];
-                break;
-            case 2: // If the app is anywhere else, default to hardcoded /var/mobile/
-                path = [@"/var/mobile" stringByAppendingPathComponent: relativeCachePath];
-                break;
-            default: // Cache not found (loop not broken)
-                return NO;
-            break; }
-        
-        BOOL isDir = NO;
-		// Ensure that file exists
-        if ([[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir] && !isDir) 
-            cacheDict = [NSDictionary dictionaryWithContentsOfFile: path];
-        
-        if (cacheDict) // If cache is loaded, then break the loop. If the loop is not "broken," it will return NO later (default: case)
-            break;
-    }
-    // First check all system (jailbroken) apps
-    NSDictionary *system = [cacheDict objectForKey: @"System"]; 
-    if ([system objectForKey: bundleIdentifier]) return YES;
-	// Then all the user (App Store /var/mobile/Applications) apps
-    NSDictionary *user = [cacheDict objectForKey: @"User"]; 
-    if ([user objectForKey: bundleIdentifier]) return YES;
-	
-    // If nothing returned YES already, we'll return NO now
-    return NO;
+	BOOL APCheckIfAppInstalled(NSString *bundleIdentifier)
+	{
+	    static NSString *const cacheFileName = @"com.apple.mobile.installation.plist";
+	    NSString *relativeCachePath = [[@"Library" stringByAppendingPathComponent: @"Caches"] stringByAppendingPathComponent: cacheFileName];
+	    NSDictionary *cacheDict = nil;
+	    NSString *path = nil;
+	    // Loop through all possible paths the cache could be in
+	    for (short i = 0; 1; i++)
+	    {
+	        
+	        switch (i) {
+	            case 0: // Jailbroken apps will find the cache here; their home directory is /var/mobile
+	                path = [NSHomeDirectory() stringByAppendingPathComponent: relativeCachePath];
+	                break;
+	            case 1: // App Store apps and Simulator will find the cache here; home (/var/mobile/) is 2 directories above sandbox folder
+	                path = [[NSHomeDirectory() stringByAppendingPathComponent: @"../.."] stringByAppendingPathComponent: relativeCachePath];
+	                break;
+	            case 2: // If the app is anywhere else, default to hardcoded /var/mobile/
+	                path = [@"/var/mobile" stringByAppendingPathComponent: relativeCachePath];
+	                break;
+	            default: // Cache not found (loop not broken)
+	                return NO;
+	            break; }
+	        
+	        BOOL isDir = NO;
+			// Ensure that file exists
+	        if ([[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir] && !isDir) 
+	            cacheDict = [NSDictionary dictionaryWithContentsOfFile: path];
+	        
+	        if (cacheDict) // If cache is loaded, then break the loop. If the loop is not "broken," it will return NO later (default: case)
+	            break;
+	    }
+	    // First check all system (jailbroken) apps
+	    NSDictionary *system = [cacheDict objectForKey: @"System"]; 
+	    if ([system objectForKey: bundleIdentifier]) return YES;
+		// Then all the user (App Store /var/mobile/Applications) apps
+	    NSDictionary *user = [cacheDict objectForKey: @"User"]; 
+	    if ([user objectForKey: bundleIdentifier]) return YES;
+		
+	    // If nothing returned YES already, we'll return NO now
+	    return NO;
 	}
 
 简单验证下：
