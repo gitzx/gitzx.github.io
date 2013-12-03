@@ -15,12 +15,12 @@ tags:  android
 
 该类可以实现许多系统级别的Activity管理和监控功能，常用的内部类：
 
-ActivityManager.MemoryInfo 系统内存使用情况
-ActivityManager.ProcessErrorStateInfo 错误状态的进程
-ActivityManager.RecentTaskInfo 近期用户打开的任务信息
-ActivityManager.RunningAppProcessInfo 正在运行应用程序进程信息
-ActivityManager.RunningServiceInfo 正在运行的服务信息
-ActivityManagerRunningTaskInfo 正在运行的任务信息
+(1)ActivityManager.MemoryInfo 系统内存使用情况;
+(2)ActivityManager.ProcessErrorStateInfo 错误状态的进程;
+(3)ActivityManager.RecentTaskInfo 近期用户打开的任务信息;
+(4)ActivityManager.RunningAppProcessInfo 正在运行应用程序进程信息;
+(5)ActivityManager.RunningServiceInfo 正在运行的服务信息;
+(6)ActivityManagerRunningTaskInfo 正在运行的任务信息;
 	
 	public long getFreeMemorySize(Context context) 
 	{
