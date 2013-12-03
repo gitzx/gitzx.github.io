@@ -3,8 +3,8 @@ date: 2013-12-03 18:45:30+00:00
 layout: post
 title: 获取Android系统中单个进程的cpu、内存占用信息
 thread: 09
-categories: Android
-tags:  Android
+categories: android
+tags:  android
 ---
 
 最近在做Android的资源占用信息监控，需要获取单个进程的cpu、内存占用信息，在这总结下常用的方法。
@@ -47,7 +47,7 @@ ActivityManagerRunningTaskInfo 正在运行的任务信息
 		}
 
 
-###解析Android文件###
+###解析Android的设备信息文件###
 
 - proc/cpuinfo获取
 
@@ -99,7 +99,7 @@ ActivityManagerRunningTaskInfo 正在运行的任务信息
 		}
 
 
-- proc/[pid]/stat 获取某个进程的信息；proc/[pid]/stat获取所有进程信息
+- proc/[pid]/stat 获取某个进程的信息；proc/stat获取所有进程信息
 	
 		public void readCpuStat() {
 			String processPid = Integer.toString(pid);
