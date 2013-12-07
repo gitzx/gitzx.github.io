@@ -1,7 +1,7 @@
 ---
 date: 2013-12-03 18:45:30+00:00
 layout: post
-title: 获取Android系统中单个进程的cpu、内存占用信息
+title: 获取Android设备上的资源占用消耗信息
 thread: 09
 categories: android
 tags:  android
@@ -154,6 +154,35 @@ tags:  android
 procrank命令可以获得当前系统中各进程的内存占用，从/proc/pid/maps中读取信息来进行统计，包含PSS，USS，VSS，RSS。
 
 也可以使用smem强大的工具来监控手机内存，可以监控系统lib，生成饼图或者柱形图
+
+###利用adb shell命令在pc端查看Android设备的资源占用消耗信息###
+
+- 通过adb shell进入Android系统的proc目录，查看proc/cpuinfo、proc/meminfo、proc/[pid]/stat和proc/stat信息。
+
+- 通过adb shell的top命令查看cpu、内存占用信息。
+
+- 通过adb shell的tcpdump命令查看Android设备网络流量消耗信息。由于tcpdump不是Android中自带的命令，需要安装[tcpdump](http://www.tcpdump.org/)。安装tcpdump的命令如下：
+
+	C:\Users\Administrator>adb shell
+	shell@android:/ $ su
+	su
+	shell@android:/ # chmod 777 /data/local
+	chmod 777 /data/local
+	shell@android:/ # ^C
+	C:\Users\Administrator>adb push tcpdump /data/local
+
+启动tcpdump服务的命令如下：
+
+	C:\Users\Administrator>adb shell
+	shell@android:/ $ su
+	su
+	shell@android:/ # chmod 6755 /data/local/tcpdump
+	chmod 6755 /data/local/tcpdump
+	shell@android:/ # /data/local/tcpdump -p -s 0 -w /sdcard/net.pcap
+
+可以在sd卡中得到net.pcap文件（或adb shell pull命令获得），利用wireshark即可分析。
+
+
 
 参考：[查看基于Android 系统单个进程内存、CPU使用情况的几种方法](http://blog.csdn.net/kieven2008/article/details/6445421)
 
