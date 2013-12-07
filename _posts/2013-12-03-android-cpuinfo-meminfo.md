@@ -163,13 +163,13 @@ procrank命令可以获得当前系统中各进程的内存占用，从/proc/pid
 
 - 通过adb shell的tcpdump命令查看Android设备网络流量消耗信息。由于tcpdump不是Android中自带的命令，需要安装[tcpdump](http://www.tcpdump.org/)。安装tcpdump的命令如下：
 
-	C:\Users\Administrator>adb shell
-	shell@android:/ $ su
-	su
-	shell@android:/ # chmod 777 /data/local
-	chmod 777 /data/local
-	shell@android:/ # ^C
-	C:\Users\Administrator>adb push tcpdump /data/local
+		C:\Users\Administrator>adb shell
+		shell@android:/ $ su
+		su
+		shell@android:/ # chmod 777 /data/local
+		chmod 777 /data/local
+		shell@android:/ # ^C
+		C:\Users\Administrator>adb push tcpdump /data/local
 
 启动tcpdump服务的命令如下：
 
