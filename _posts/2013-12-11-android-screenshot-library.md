@@ -26,7 +26,6 @@ android-screenshot-library(ASL)利用后台本地服务来实现截屏，应用�
 
 可以通过asl-native.log可以查看服务建立信息：
 
-
 ![](/assets/blog_pic/asl-native-log.PNG)
 
 
