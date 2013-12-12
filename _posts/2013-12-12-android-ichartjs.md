@@ -24,7 +24,7 @@ tags:  android
 
 DemoActivity.java
 
-	public class A1Activity extends Activity {	
+	public class DemoActivity extends Activity {	
 		WebView wv;
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
