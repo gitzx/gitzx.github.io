@@ -3,11 +3,11 @@ permalink: /:title/
 url: http://gitzx.github.io
 name: gitzx.github.io
 author: zhangxiang
-email: crisising@163.com
+email: gitzhx@163.com
 duoshuo: gitzx
 cnzz: 
 github: gitzx
 pygments: true
 safe: true
-paginate: 20
+paginate: 15
 about: "这里是 zx 的个人博客<br /><br />"
