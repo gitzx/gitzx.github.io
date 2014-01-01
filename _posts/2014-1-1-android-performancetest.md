@@ -50,7 +50,7 @@ Android APP的主要功能如下：
 
 在linux系统中，可以从/proc文件系统中获取系统硬件信息和当前正在运行进程的信息。/proc是一种伪文件系统（虚拟文件系统，只存在内存中，不占用外存空间）。一些linux程序如top、ps等实际上是从/proc文件中获取信息再组织显示。由于Android系统是基于linux内核，因此我们可以从/proc中获取计算CPU占用、内存占用和网络流量消耗信息。
 
-#####CPU占用数据的获取#####
+####CPU占用数据的获取####
 
 （1） 获取CPU核数
 
@@ -123,7 +123,7 @@ CPU总使用率= 100*((totalCPU2-totalCPU1)-(idleCPU2-idleCPU1))/(totalCPU2-tota
 
 /proc/<pid>/stat文件包含了某个进程的CPU的所有活动信息。如下图所示。
 
-![](/assets/blog_pic/ proc_pid_stat.PNG)
+![](/assets/blog_pic/proc_pid_stat.PNG)
 
 其中980为邮件服务的进程id；325表示该任务在用户态的运行时间；150表示该任务在核心态的运行时间；后面的两个0分别表示已死线程在用户态和核心态的运行时间。时间单位为jiffies。
 
@@ -165,7 +165,7 @@ CPU总使用率= 100*((totalCPU2-totalCPU1)-(idleCPU2-idleCPU1))/(totalCPU2-tota
 	Runtime.getRuntime().exec("/system/xbin/procrank");
 
 
-#####内存占用数据的获取#####
+####内存占用数据的获取####
 
 内存占用有四种表现形式，分别如下：
 
@@ -191,7 +191,7 @@ CPU总使用率= 100*((totalCPU2-totalCPU1)-(idleCPU2-idleCPU1))/(totalCPU2-tota
 	      return memSize;
 	  }
 
-#####网络流量数据的获取#####
+####网络流量数据的获取####
 
 获取Android单个进程的网络流量有两种方法：
 
@@ -217,7 +217,7 @@ CPU总使用率= 100*((totalCPU2-totalCPU1)-(idleCPU2-idleCPU1))/(totalCPU2-tota
 	        tracffic = tcp_rcv + tcp_snd;
 	    }
 
-#####性能数据的保存#####
+####性能数据的保存####
 
 为了方便的进行性能数据的后续分析，我们将性能数据保存为CSV或excel文件。Java中操作excel文件可以使用jxl库或poi库。我们使用的是jxl，Jxl是一个开源的java Excel API项目。在Android项目中导入jxl的jar文件，即可使用jxl去操作Excel文件了。由于代码较长，在这就不列出了。性能数据存储后，我们便可读取Excel文件，将数据显示在悬浮窗和在app中绘制性能曲线了。
 
@@ -257,5 +257,5 @@ Android有两类Services：
 
 这两部分在之前的文章中有介绍。可查看[利用android-screenshot-library(ASL)来实现截屏](http://gitzx.github.io/android-screenshot-library/)和[利用ichartjs库来实现Android上绘制报表](http://gitzx.github.io/android-ichartjs/)
 
-今天是2014的第一天，希望在接下来的一年里更加努力，多总结和思考，加油~
+今天是2014的第一天，希望自己在接下来的一年里更加努力，多总结和思考，加油~
 
