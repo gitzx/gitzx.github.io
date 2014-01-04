@@ -15,7 +15,7 @@ IOS的安全架构分为两层，低层次的硬件和固件安全抵御恶意�
 
 ###系统结构###
 
-#####安全启动链（Secure Boot Chain）#####
+####安全启动链（Secure Boot Chain）####
 
 系统启动过程中每一步包含的所有组件都已经过苹果签名，并且只有在验证了信任链后才会被执行。这包括引导加载程序、内核、内核扩展、基带固件。
 
@@ -38,15 +38,15 @@ Ios有三种启动模式：
 也可长按Home和Sleep/Wake按钮8秒进入该模式，该启动模式存在安全漏洞被利用进行越狱。
 　　Boot ROM ---> iBSS ---> iBec ---> Kernel （Ramdisk，can be restored）	
 
-#####系统软件个性化（System Software personalization）#####
+####系统软件个性化（System Software personalization）####
 
 iOS设备的系统升级之后是不允许降级的（官方没有提供接口）。iOS系统在升级过程需要联网进行验证，系统升级之前，设备会将LLB、iBoot、内核、镜像，外加一个随机的不可重复的值发送到苹果的服务器进行验证，服务器端对所有这些进行验证，如果通过验证，将会返回一个通过的结果，结果加入了与设备唯一相关的ECID。这样做的好处是此值是无法重用的，只能对应与一台设备，且只能使用一次。通过这种机制，保证了系统升级过程都是符合苹果要求的。提高了较高的安全性。
 
-#####应用签名（App Code Signing）#####
+####应用签名（App Code Signing）####
 
 iOS系统在升级过程需要联网进行验证，系统升级之前，设备会将LLB、iBoot、内核、镜像，外加一个随机的不可重复的值发送到苹果的服务器进行验证，服务器端对所有这些进行验证，如果通过验证，将会返回一个通过的结果，结果加入了与设备唯一相关的ECID。这样做的好处是此值是无法重用的，只能对应与一台设备，且只能使用一次。同过这种机制，保证了系统升级过程都是符合苹果要求的。提高了较高的安全性。
 
-#####运行时安全（Runtime　Process　Security)#####
+####运行时安全（Runtime　Process　Security)####
 
 所有的第三方应用都在沙盒中运行。每个应用是隔离的，都有一个唯一的home路径用来存放自己的文件，这个路径是在安装时随机分配的。如果要访问另一个应用的数据，只能通过iOS提供的API或services。
 
@@ -60,7 +60,7 @@ XN (execute never) 标志位在ARMv6中被引入，不可以在此区执行指�
 
 安全启动链、代码签名、运行时安全等确保受信任的代码和应用才能在设备上运行。iOS还提供额外的安全功能来保护用户的数据，即使是在其他的安全机制遭到破坏时（如设备被未经授权修改）。就像系统架构一样，加密和数据保护整合了硬件和软件技术提供保护能力。
 
-#####硬件安全特性（Hardware Security Features）#####
+####硬件安全特性（Hardware Security Features）####
 
 加解密是耗时耗能源的操作。而iOS内所有用户数据都是强制加密的，加密功能不能关闭。所以，苹果的AES加解密引擎都是硬件级的，位于存储与系统之间的DMA内，所有进出存储的数据都啊要经过硬件的加密与解密，这样提供了较高的效率与性能。
 
@@ -68,7 +68,7 @@ XN (execute never) 标志位在ARMv6中被引入，不可以在此区执行指�
 
 除了GID及UID，其他加密使用的KEY全部来自系统自带的随机数生成器，具体使用的算法为Yarrow。
 
-#####文件数据保护（File Data Protection）#####
+####文件数据保护（File Data Protection）####
 
 每当一个文件在数据分区创建时，数据保护就创建一个新的256位的key。该key被交给硬件AES引擎，AES引擎使用该key加密要写入闪存的文件。
 
@@ -86,7 +86,7 @@ prefile的访问需要进行解密的key，这些key包括：
 
 当一个文件打开时，它的元数据首先被解密（使用file system key）。元数据包括加密了的file key和文件的保护类型class，根据文件保护类型找到对应的加密的class key，利用开机密码和UID可解密class key，再利用class key解密file key，最后把file key提供给AES引擎，当从闪存读取文件时由它来解密文件类容。
 
-#####开机密码（Passcodes）#####
+####开机密码（Passcodes）####
 
 锁屏密码为了防止暴力破解，增加了三个限制：
 
@@ -96,15 +96,15 @@ prefile的访问需要进行解密的key，这些key包括：
 
 - 增加选项，若连续输错次数超过10次，可选择删除设备内数据。
 
-#####数据保护类型（Classes）#####
+####数据保护类型（Classes）####
 
 在iOS设备上，当一个文件创建时，它被应用（app）分配了一个类型（class）。不同的类型在数据被访问时会应用不同的策略。
 
-#####密钥链的数据保护（Keychain Data Protection）#####
+####密钥链的数据保护（Keychain Data Protection）####
 
 应用的小量极敏感数据如密码，最好存储与KeyChain内，而不是应用自己管理。Keychain是以No Protection保护类型存储在文件系统中的SQLite数据库实现的。它提供了与文件保护key层次对应的key等级。只有一个数据库，一个叫securityd的安全守护进程决定哪一个keychain的项可以被哪个进程或应用访问。Keychain访问API要求调用securityd框架，securityd框架会查询应用的“keychain-access-groups”和 “application-identifier”授权。access groups允许Keychain的项在不同的应用之间共享数据。
 
-#####密钥包（Keybags)#####
+####密钥包（Keybags)####
 
 文件和keychain的两种数据保护类型的key都通过密钥包存储和管理。iOS有四个密钥包：System、Backup、Escrow、iCLoud Backup。
 
