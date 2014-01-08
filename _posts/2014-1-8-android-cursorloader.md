@@ -7,7 +7,13 @@ categories: android
 tags: android
 ---
 
-Android3.0加入了loaders，loaders可用于在activity或fragment中异步加载数据，loaders有多个类和接口：（1）LoaderManager；（2）LoaderManager.LoaderCallbacks；（3）Loader；（4）AsyncTaskLoader;（5）CursorLoader。
+Android3.0加入了loaders，loaders可用于在activity或fragment中异步加载数据，loaders有多个类和接口：
+
+- LoaderManager；
+- LoaderManager.LoaderCallbacks；
+- Loader；
+- AsyncTaskLoader;
+- CursorLoader。
 
 CursorLoader常用于在后台加载数据，在这小结下：
 
@@ -75,7 +81,7 @@ onLoaderReset()用于重设一个Loader，使得它的数据不可用。
 	    mAdapter.swapCursor(data);
 	}
 
-举个加载联系人的例子：
+###一个加载联系人的例子：###
 
 	public class ListViewLoader extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 	    SimpleCursorAdapter mAdapter;
