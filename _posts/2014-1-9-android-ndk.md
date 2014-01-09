@@ -91,7 +91,7 @@ jni的引用类型如下：
 
 由于Android是基于linux内核，因此只能使用.so的动态链接库。在windows上开发Android，若使用Android NDK r7之前版本，需要自己利用cygwin来搭建交叉编译环境来生成.so文件。Android NDK r7及以上的版本已经集成了Cygwin编译环境。
 
-配置好Android开发环境后，下载Android NDK，配置NDK如下：
+配置好Android开发环境后，下载Android NDK，Android NDK的实现步骤如下：
 
 （1）Eclipse -> Window -> Preferences -> Android -> NDK，设置NDK为刚刚解压缩的工具包路径。
 
