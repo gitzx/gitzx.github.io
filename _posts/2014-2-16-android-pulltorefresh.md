@@ -343,7 +343,7 @@ tags: android
 	            android:layout_width="fill_parent"  
 	            android:layout_height="fill_parent" >  
 	        </ListView>  
-	    </com.example.pulltorefreshtest.RefreshableView>  
+	    </com.example.pulltorefreshtest.PullToRefreshExpandableListView>  
 	  
 	</RelativeLayout>  
 
