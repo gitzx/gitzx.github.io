@@ -7,7 +7,7 @@ categories: android
 tags: android
 ---
 
-最近在做局域网通信，需要用到ListView的下拉刷新功能，在这小结下。
+最近在做局域网通信，需要用到ListView的下拉刷新功能，用的比较多的是开源库[pulltorefresh](https://github.com/chrisbanes/Android-PullToRefresh),支持上拉和下拉功能，功能较多，很多都用不上。就参考了别人自己的实现，在这小结下。
 
 先定义一个下拉刷新的布局文件`refresh_head.xml`.
 
