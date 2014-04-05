@@ -1,0 +1,7 @@
+---
+layout: none
+permalink: .htaccess
+---
+RewriteEngine On
+RewriteCond %{http_host} ^gitzx.com [nc]
+RewriteRule ^(.*)$ http://www.gitzx.com/$1 [r=301,nc]
