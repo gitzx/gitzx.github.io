@@ -10,7 +10,7 @@ comments: no
 
 ###联系方式###
 
-网站：[{{ site.name }}]({{ site.url }})
+网站：[www.gitzx.com](http://www.gitzx.com/)
 
 邮箱：[{{ site.email }}](mailto:{{ site.email }})
 
