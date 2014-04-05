@@ -30,4 +30,9 @@ cocos2d-x自带的TestCpp例子包含由多个示例，是学习cocos2d－x的�
 
 (6) VisibleRect.h/cpp : 自适应屏幕分辨率。以屏幕上可视区域的9个点作为参考点，相当于在该矩形内写一个米字，这9个点分别是：左上、左、左下、下、右下、右、右上、上、中心。例如：
 
-	CCPoint VisibleRect::lef(){    	lazyInit();    	return ccp(s_visibleRect.origi, 			s_visibleRect.origin.y+s_visibleRect.size.height/);    }
+	CCPoint VisibleRect::lef()
+	{
+    	lazyInit();	
+    	return ccp(s_visibleRect.origi, s_visibleRect.origin.y+s_visibleRect.size.height/);
+    }
+
