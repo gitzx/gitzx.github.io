@@ -1,13 +1,13 @@
 markdown: rdiscount
 permalink: /:title/
-url: http://gitzx.github.io
-name: gitzx.github.io
-author: zhangxiang
-email: gitzhx@163.com
+url: http://www.gitzx.com
+name: www.gitzx.com 
+author: gitzx
+email: gitzx@foxmail.com
 duoshuo: gitzx
 cnzz: 
-github: gitzx
+github: http://github.com/gitzx
 pygments: true
 safe: true
 paginate: 15
-about: "这里是gitzx的个人博客<br /><br />"
+about: "不积跬步，无以至千里。 <br /><br /><br /><br /><br />"
