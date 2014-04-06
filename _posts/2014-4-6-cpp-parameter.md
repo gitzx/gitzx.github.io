@@ -1,7 +1,7 @@
 ---
 date: 2014-4-6 21:08:30+00:00
 layout: post
-title: c++形参的三种传递方式
+title: c++参数的三种传递方式
 thread: 46
 categories: c++
 tags: c++
