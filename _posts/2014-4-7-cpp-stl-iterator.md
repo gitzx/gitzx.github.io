@@ -88,6 +88,7 @@ advance()和distance()提供了只有Random access迭代器才有的能力。
 对于Random access迭代器，advance()和distance()函数调用pos＋＝n和pos2-pos1，因此具有常量复杂度；对于非Random access迭代器，调用n次++pos，具有线性复杂度。
 
 	{% highlight C++ %}
+	
 	#include<iostream>
 	#include<list>
 	#include<algorithm>
