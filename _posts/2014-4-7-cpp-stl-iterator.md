@@ -107,19 +107,63 @@ advance()和distance()提供了只有Random access迭代器才有的能力。
 		for(pos=coll.begin(); pos!=coll.end(); ++pos){
 			cout<<*pos<<" ";
 		}  //输出5 1 2 3 4 0
+		return 0;
 	}
+	
 	{% endhighlight %}
 
 ###迭代器配接器###
 
 STL迭代器有三种迭代器配接器：
 
-(1)Reverse(逆向)迭代器
+(1)Reverse(逆向)迭代器 : 所有的标准容器都允许使用Reverse迭代器来遍历元素；容器的成员函数rbegin()和rend()各传回一个Reverse迭代器。
 
-(2)Insert(安插)迭代器
+(2)Insert(安插)迭代器 ： 所有的Insert迭代器都属于Output迭代器类型；因此只提供赋值的能力。
 
-(3)stream(流)迭代器
+(3)stream(流)迭代器  :  把stream当成算法的原点和终点；一个istream迭代器可用来从input stream中读取元素；一个ostream迭代器可用来对output stream写入元素。
 
+####Insert迭代器的种类####
+
+(1)back_insert_iterator  : （函数） back_inserter(cont)
+
+(2)front_insert_iterator :  (函数) front_inserter(cont)
+
+(3)insert_iterator : (函数) inserter(cont, pos)
+
+	{% highlight C++ %}
+	
+	#include<iostream>
+	#include<list>
+	#include<algorithm>
+	using namespace std;
+	int main(){
+		list<int> coll;
+		for(int i=0;i<6;++i){
+			coll.push_back(i);
+		}
+		back_insert_iterator< list<int> > back_iter(coll);
+		back_inserter(coll)=55;
+		list<int>::iterator pos;
+		for(pos=coll.begin();pos!=coll.end();++pos){
+			cout<<*pos<<" ";
+		} //输出0 1 2 3 4 5 55
+		cout<<endl;
+		front_insert_iterator< list<int> >front_iter(coll);
+		front_inserter(coll)=11;
+		for(pos=coll.begin();pos!=coll.end();++pos){
+			cout<<*pos<<" ";
+		} //输出11 0 1 2 3 4 5 55
+		cout<<endl;
+		insert_iterator< list<int> > iter(coll, coll.begin());
+		inserter(coll, coll.end())=66;
+		for(pos=coll.begin();pos!=coll.end();++pos){
+			cout<<*pos<<" ";
+		} //输出11 0 1 2 3 4 5 55 66
+		cout<<endl;
+		return 0;
+	}
+	
+	{% endhighlight %}
 
 
 
