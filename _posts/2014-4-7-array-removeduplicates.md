@@ -38,7 +38,7 @@ tags: algorithm
 
 	int main(){
 		int A[5]={1,1,1,2,2};
-		Solution1 s1;（或Solution2 s1）
+		Solution1 s1;
 		int d = s1.removeDumplicates(A, 5);
 		for(int i=0;i<d;++i){
 			cout<<A[i]<<" ";
@@ -83,7 +83,7 @@ tags: algorithm
 	};
 
 	int main(){
-		Solution2 s1;
+		Solution1 s1; //或Solution2 s1；
 		int A[8]={1,1,1,2,2,2,3,3};
 		int d=s1.removeDuplicates(A, 8);
 		for(int i=0;i<d;i++){
