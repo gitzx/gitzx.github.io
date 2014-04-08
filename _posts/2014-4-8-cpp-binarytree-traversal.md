@@ -96,7 +96,7 @@ tags: algorithm
 					p=s.top();
 					s.pop();
 					//右孩子不存在或已被访问，访问之
-					if（p->right==q）{
+					if(p->right==q){
 						cout<< p->data <<" ";
 						q=p; //保存刚访问的节点
 					}else{
