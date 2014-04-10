@@ -2,7 +2,7 @@
 date: 2014-4-10 11:45:30+00:00
 layout: post
 title: 二叉树的深度和路径和问题
-thread: 50
+thread: 51
 categories: algorithm
 tags: algorithm
 ---
