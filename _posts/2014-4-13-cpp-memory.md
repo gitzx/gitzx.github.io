@@ -40,7 +40,7 @@ tags: c++
 
 - 内存被释放了，并不表示指针会消亡或者成为NULL指针。
 
-####野指针####
+####野指针产生的原因####
 
 "野指针"不是NULL指针，是指向“垃圾”内存的指针。“野指针”产生的原因有：
 
@@ -71,7 +71,7 @@ tags: c++
 	class a   
 	{   
 	public:  
-		void func(void){ cout << “func of class a” << endl; }  
+		void func(void){ cout << "func of class a" << endl; }  
 	};  
 	void test(void)  
 	{  
