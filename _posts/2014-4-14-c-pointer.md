@@ -1,7 +1,7 @@
 ---
 date: 2014-4-14 23:02:30+00:00
 layout: post
-title: C指针小结
+title: c++指针小结
 thread: 55
 categories: c++
 tags: c++
@@ -94,7 +94,7 @@ tags: c++
 (2)指针函数，就是返回指针的函数.函数的返回值不仅仅局限于指向变量的指针，也可以是指向函数的指针。例如
 
 	{% highlight C++ %}
-		char *strcat( char *dest, const char *src );
+	char *strcat( char *dest, const char *src );
 	char *strcpy( char *dest, const char *src );
 	char *strchr( const char *s, int c );
 	char *strstr( const char *src, const char*sub );
