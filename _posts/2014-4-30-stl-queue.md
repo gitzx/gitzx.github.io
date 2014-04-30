@@ -15,6 +15,8 @@ queue的特性是“先进先出”，可以以deque和list作为底层的结构
 
 ###以deque作为queue的底层容器###
 
+STL使用deque作为queue缺省的底层容器。
+
 	{% highlight C++ %}
 	template <class T,class Sequence=deque<T> >
 	class queue{
