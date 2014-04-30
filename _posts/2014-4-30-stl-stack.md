@@ -1,5 +1,5 @@
 ---
-date: 2014-4-30 17:32:30+00:00
+date: 2014-4-30 14:32:30+00:00
 layout: post
 title: c++ stl之stack
 thread: 62
