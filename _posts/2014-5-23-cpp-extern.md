@@ -92,26 +92,26 @@ C语言中不支持extern "C"声明，在.c文件中包含了extern "C"时会出
 
 （2）在C中引用C++语言中的函数和变量时，C++的头文件需添加extern "C"，但是在C语言中不能直接引用声明了extern "C"的该头文件，应该仅将C文件中将C++中定义的extern "C"函数声明为extern类型。
 
-{% highlight C++ %}
-//C++头文件 cppExample.h
-#ifndef CPP_EXAMPLE_H
-#define CPP_EXAMPLE_H
-extern "C" int add( int x, int y );
-#endif
-//C++实现文件 cppExample.cpp
-#include "cppExample.h"
-int add( int x, int y )
-{
-	return x + y;
-}
-/* C实现文件 cFile.c
-/* 这样会编译出错：#include "cExample.h" */
-extern int add( int x, int y );
-int main( int argc, char* argv[] )
-{
-	add( 2, 3 ); 
-	return 0;
-}
-{% endhighlight %}
+		{% highlight C++ %}
+		//C++头文件 cppExample.h
+		#ifndef CPP_EXAMPLE_H
+		#define CPP_EXAMPLE_H
+		extern "C" int add( int x, int y );
+		#endif
+		//C++实现文件 cppExample.cpp
+		#include "cppExample.h"
+		int add( int x, int y )
+		{
+			return x + y;
+		}
+		/* C实现文件 cFile.c
+		/* 这样会编译出错：#include "cExample.h" */
+		extern int add( int x, int y );
+		int main( int argc, char* argv[] )
+		{
+			add( 2, 3 ); 
+			return 0;
+		}
+		{% endhighlight %}
 
 参考：[C/C++中extern关键字详解](http://www.cnblogs.com/yc_sunniwell/archive/2010/07/14/1777431.html) [(转)C++中extern “C”含义深层探索](http://www.cppblog.com/macaulish/archive/2008/06/17/53689.html) [使用 extern 指定链接](http://msdn.microsoft.com/zh-cn/library/0603949d.aspx)
