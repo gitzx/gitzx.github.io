@@ -33,7 +33,7 @@ tags: c++
 		...
 	}
 	//显示转换
-	String s1(10); ok,分配10个字节空字符串
+	String s1(10); //ok,分配10个字节空字符串
 	String s2("hello"); //ok
 	//隐式转换
 	String s3=10; //ok,分配10个字节空字符串
@@ -51,7 +51,7 @@ tags: c++
 		...
 	}
 	//显示转换
-	String s1(10); ok,分配10个字节空字符串
+	String s1(10); //ok,分配10个字节空字符串
 	String s2("hello"); //ok
 	//隐式转换
 	String s3=10; //编译错误
