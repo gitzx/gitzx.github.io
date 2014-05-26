@@ -135,35 +135,35 @@ mutable是“可变的，易变的”，跟const是反义的。在C++中，mutab
 	{% highlight C++ %}
 	class ClxTest
 	{
-	　public:
-	　　ClxTest();
-	　　~ClxTest();	 
-	　　void Output() const;
-	　　int GetOutputTimes() const;	
- 
-	　private:
-	　　mutable int m_iTimes;
+	public:
+		ClxTest();
+		~ClxTest();	 
+		void Output() const;
+		int GetOutputTimes() const;	
+	 
+	private:
+		mutable int m_iTimes;
 	};	 
 	ClxTest::ClxTest()
 	{
-	　m_iTimes = 0;
+		m_iTimes = 0;
 	}	 
 	ClxTest::~ClxTest()
 	{}	 
 	void ClxTest::Output() const
 	{
-	　cout << "Output for test!" << endl;
-	　m_iTimes++;
+		cout << "Output for test!" << endl;
+		m_iTimes++;
 	}	 
 	int ClxTest::GetOutputTimes() const
 	{
-	　return m_iTimes;
+		return m_iTimes;
 	}	 
 	void OutputTest(const ClxTest& lx)
 	{
-	　cout << lx.GetOutputTimes() << endl;
-	　lx.Output();
-	　cout << lx.GetOutputTimes() << endl;
+		cout << lx.GetOutputTimes() << endl;
+		lx.Output();
+		cout << lx.GetOutputTimes() << endl;
 	}
 	{% endhighlight %}
 
