@@ -31,9 +31,9 @@ Android版小助手的基本功能有：
 ![](/assets/blog_pic/game_tools.png =380x640)
 ![](/assets/blog_pic/game_performance.png =380x640)
 
-![](/assets/blog_pic/game_performance2.png =380x640)
+![](/assets/blog_pic/game_performance2.png)
 
-![](/assets/blog_pic/game_performance3.png =380x640)
+![](/assets/blog_pic/game_performance3.png)
 
 5.二维码扫描下载手游APK，MTL设备一般都没有安装带二维码扫描的APP，这主要针对的是两地统一的手游下载网站；
 
@@ -56,8 +56,11 @@ IOS版MTL小工具的功能比较少，目前有的功能有：
 
 1.获取IOS设备上的应用进程信息，包括pid等信息，便于后续性能数据的获取；
 
-![](/assets/blog_pic/jni-interface.png =380x640)
+![](/assets/blog_pic/ios_game_info =320x480)
+![](/assets/blog_pic/ios_game_info2 =320x480)
 
 2.IOS设备的内存信息、硬件信息和联网信息等；公司手游的简单介绍。
 
-
+![](/assets/blog_pic/ios_game_info3 =320x480)
+![](/assets/blog_pic/ios_game_info4 =320x480)
+![](/assets/blog_pic/ios_game_info5 =320x480)
