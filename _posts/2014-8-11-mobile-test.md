@@ -41,7 +41,7 @@ tags: android ios
 
 下图是移动测试系统的结构图，系统可分为三个部分：（1）移动测试系统服务器；（2）接入到移动测试系统的PC测试机；（3）通过usb hub连接在PC测试机上的Android设备。
 
-![](/assets/blog_pic/mtc_struct.png =302x401)
+![](/assets/blog_pic/mtc_struct.png =602x401)
 
 系统执行测试的主要步骤有：
 
@@ -63,7 +63,7 @@ tags: android ios
 
 Jenkins有master和slave的结构，一个master可以关联多个slave用来为不同的job或相同的job的不同配置来服务。
 
-![](/assets/blog_pic/mtc_jenkins.PNG)
+![](/assets/blog_pic/mtc_jenkins.PNG =600x371)
 
 当job被分配到slave上运行的时候，此时master和slave其实是建立的双向字节流的连接，主要的连接方式有：
 
@@ -95,8 +95,8 @@ Jenkins有master和slave的结构，一个master可以关联多个slave用来为
 
 下图显示的是真机连接信息：
 
-![](/assets/blog_pic/mtc_devices2.PNG =390x155)
-![](/assets/blog_pic/mtc_devices.PNG =310x261)
+![](/assets/blog_pic/mtc_devices2.PNG =585x232)
+![](/assets/blog_pic/mtc_devices.png =410x261)
 
 2.APK包的处理
 
@@ -120,7 +120,7 @@ Jenkins有master和slave的结构，一个master可以关联多个slave用来为
 
 Robotium是Android上常用的UI自动化测试框架，它提供了模拟各种手势操作（点击、长按、滑动等）、查找和断言机制的API，能够对各种控件进行操作。下图显示的是在测试系统中，模拟操作Android原生应用控件的截图：
 
-![](/assets/blog_pic/mtc_robotium.PNG =437x258)
+![](/assets/blog_pic/mtc_robotium.PNG =460x258)
 
 Robotium 主要通过Solo对象的实例来创建测试用例，如果有对应应用的R.java文件，可以通过类似solo.getView(R.id.**)来获取控件。Robotium的使用比较简单，限于篇幅，在这就不展开了。
 
@@ -128,7 +128,7 @@ Robotium 主要通过Solo对象的实例来创建测试用例，如果有对应�
 
 对于Android手游，控件大多是贴图。因此，Android手游的自动化遍历，除了调用Android手游代码中的相关入口函数实现场景遍历，也可以对控件进行识别操作等进行Android手游的自动化运行。测试系统将上传的手游APK分发到各个真机后会启动该手游，若需手游自动运行，用户需上传能自动跑场景的手游APK，或上传普通手游APK同时上传能支持跑场景的bash脚本，系统在启动游戏同时执行上传的bash脚本，如下图所示：
 
-![](/assets/blog_pic/mtc_script.PNG =218x128)
+![](/assets/blog_pic/mtc_script.PNG =418x228)
 
 据游戏控件进行识别操作等机型自动化运行，PC端上可使用免费skikuli来实现相应的功能，在移动端，我们可以利用相似度或特征点进行按钮等控件识别操作。
 
@@ -148,13 +148,13 @@ Robotium 主要通过Solo对象的实例来创建测试用例，如果有对应�
 
 下图显示的是自己编写的测试APP应用在三台真机上的整体信息。整体信息包括了测试的真机设备；安装、启动、卸载耗时；平均、最大内存占用；平均、最大CPU占用率；以及流量消耗等，并以图表的形式做了展示。
 
-![](/assets/blog_pic/mtc_robotium_data.PNG =470x211)
+![](/assets/blog_pic/mtc_robotium_data.PNG =570x211)
 
 下图显示的是Android应用(格斗类手游)在单个真机上的数据及曲线图，包括设备/应用CPU占用率曲线；设备/应用内存占用曲线；流量消耗；电量消耗等曲线信息：
 
 ![](/assets/blog_pic/mtc_game_data.PNG =566x292)
 
-应用的CPU占用率、内存占用和流量消耗，可参考我之前的文章。。。。
+应用的CPU占用率、内存占用和流量消耗，可参考我之前的文章 [利用Android APP监测Android应用程序的资源占用消耗](http://www.gitzx.com/android-performancetest/)
 
 4.应用截图的获取和问题截图定位
 
