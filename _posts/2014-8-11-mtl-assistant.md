@@ -2,7 +2,7 @@
 date: 2014-8-11 14:27:30+00:00
 layout: post
 title: MTL小助手功能介绍
-thread: 79
+thread: 78
 categories: android ios
 tags: android ios
 ---
