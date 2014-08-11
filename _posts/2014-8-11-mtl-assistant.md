@@ -56,11 +56,11 @@ IOS版MTL小工具的功能比较少，目前有的功能有：
 
 1.获取IOS设备上的应用进程信息，包括pid等信息，便于后续性能数据的获取；
 
-![](/assets/blog_pic/ios_game_info =320x480)
-![](/assets/blog_pic/ios_game_info2 =320x480)
+![](/assets/blog_pic/ios_game_info.png =320x480)
+![](/assets/blog_pic/ios_game_info2.png =320x480)
 
 2.IOS设备的内存信息、硬件信息和联网信息等；公司手游的简单介绍。
 
-![](/assets/blog_pic/ios_game_info3 =320x480)
-![](/assets/blog_pic/ios_game_info4 =320x480)
-![](/assets/blog_pic/ios_game_info5 =320x480)
+![](/assets/blog_pic/ios_game_info3.png =320x480)
+![](/assets/blog_pic/ios_game_info4.png =320x480)
+![](/assets/blog_pic/ios_game_info5.png =320x480)
