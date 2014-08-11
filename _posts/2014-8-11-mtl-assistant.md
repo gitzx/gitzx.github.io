@@ -39,11 +39,13 @@ Android版小助手的基本功能有：
 
 6.在音乐播放器功能的基础上改的猜声小游戏，根据播放的声音猜歌名或明星，带简单计时、判定和积分功能；
 
-7.分发服务。目前已实现功能是获取MTL设备的相关参数，上传到移动测试平台。
-
-![](/assets/blog_pic/game_research.png =380x640)
 ![](/assets/blog_pic/game_voice.png =380x640)
 ![](/assets/blog_pic/game_voice2.png =380x640)
+
+7.分发服务。目前已实现功能是获取MTL设备的相关参数，上传到移动测试平台。
+
+![](/assets/blog_pic/game_deviceinfo.png =380x640)
+![](/assets/blog_pic/game_deviceinfo2.png =380x640)
 
 8.注册登录功能等。
 
