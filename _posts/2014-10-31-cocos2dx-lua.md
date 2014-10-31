@@ -7,7 +7,7 @@ categories: cocos2d-x
 tags: cocos2d-x
 ---
 
-之前利用cocos2d-x做的小游戏告一段路了，在这整理下cocos2d-x3.x的一些知识点。
+之前利用cocos2d-x做的小游戏告一段路了，整理下cocos2d-x3.x和Lua的一些知识点，完整版本可查看[cocos2dx+lua.xmind](https://github.com/gitzx/notes/tree/master/cocos2dx)，在这只列举下cocos2d-x3.x的知识点。
 
 ###常用类###
 
