@@ -1,5 +1,5 @@
 ---
-date: 2014-11-11 12:08:30+00:00
+date: 2014-11-12 12:18:30+00:00
 layout: post
 title: cocos2d-x 2.x和3.x版本中lua调用C/C++
 thread: 84
