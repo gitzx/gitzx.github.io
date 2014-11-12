@@ -30,6 +30,7 @@ cocos2d-x 2.x版本是利用toLua++方式来实现lua和C/C++的相互调用，�
 
 （4）简单示例：
 
+	{% highlight C++ %}
 	#include <stdio.h>
 	#include <string.h>
 	#include "lua.h" //若为C++则#include"lua.hpp"
@@ -55,9 +56,11 @@ cocos2d-x 2.x版本是利用toLua++方式来实现lua和C/C++的相互调用，�
 		lua_close(L);
 		return 0;
 	}
+	{% endhighlight %}
 
 (5)栈的使用。根据lua和c的两大差异，lua和C通过一个虚拟栈来实现数据交换。。在C/C++程序中，如果要获取Lua的值，只需调用Lua的C API函数，Lua就会将指定的值压入栈中。要将一个值传给Lua时，需要先将该值压入栈，然后调用Lua的C API，Lua就会获取该值并将其从栈中弹出。为了可以将不同类型的值压入栈，以及从栈中取出不同类型的值，Lua为每种类型均设定了一个特定函数。
 
+	{% highlight C++ %}
 	//压入元素，lua调用C时，栈中至少会有20个空闲的槽
 	void lua_pushnil(lua_State *L);
 	void lua_pushboolean(lua_State *L,int bool);
@@ -97,6 +100,7 @@ cocos2d-x 2.x版本是利用toLua++方式来实现lua和C/C++的相互调用，�
 	void lua_insert(lua_State* L, int index); 
 	//弹出栈顶元素，并将该值设置到指定索引上。
 	void lua_replace(lua_State* L, int index); 
+	{% endhighlight %}
 
 （6）C API的错误处理
 
@@ -112,6 +116,7 @@ C/C++调用lua函数的基本协议是c向lua传递参数，从lua中获取结�
 
 （1）基本调用
 
+	{% highlight C++ %}
 	//ccalllua.cpp
 	#include <stdio.h>
 	#include <string.h>
@@ -149,6 +154,7 @@ C/C++调用lua函数的基本协议是c向lua传递参数，从lua中获取结�
 	else
 		width=200; height =200
 	end
+	{% endhighlight %}
 
 （2）编译运行
 
@@ -167,6 +173,7 @@ C/C++调用lua函数的基本协议是c向lua传递参数，从lua中获取结�
 
 (1)以C函数形式作为程序一部分
 
+	{% highlight C++ %}
 	//luacallc.c
 	#include <stdio.h>
 	#include "lua.h"
@@ -202,6 +209,7 @@ C/C++调用lua函数的基本协议是c向lua传递参数，从lua中获取结�
 	avg, sum = average(10, 20, 30, 40, 50)
 	print("The average is ", avg)
 	print("The sum is ", sum)
+	{% endhighlight %}
 
 
 以C函数形式作为程序一部分,这种调用和C调用lua的区别在于参数和结果的传递和获取方式，同样，通过如下命令即可运行：
@@ -221,6 +229,7 @@ Lua模块式一个程序块，定义了一些lua函数，这些函数通常存�
 
 Lua通过使用函数地址来直接调用它们，即只依赖注册时传入的函数地址
  
+	{% highlight C++ %}
 	//luacallcmodule.c
 	#include <stdio.h>
 	#include "lua.h"
@@ -263,8 +272,9 @@ Lua通过使用函数地址来直接调用它们，即只依赖注册时传入�
 	//在调用时，必须是package.function
 	print(mytestlib.add(1.0,2.0))
 	print(mytestlib.sub(20.1,19))
+	{% endhighlight %}
 
-如果解释器不支持动态链接，必须用心的模块来重新编译Lua，此外，还需要以某种方式告诉解释器，应该在打开一个新状态的同时打开这个模块，最简单的做法是，将上面的`luaopen_mytestlib`加到luaL_openlibs会打开的标准库列表中，这个列表在文件linit.c中。
+如果解释器不支持动态链接，必须用新的模块来重新编译Lua，此外，还需要以某种方式告诉解释器，应该在打开一个新状态的同时打开这个模块，最简单的做法是，将上面的`luaopen_mytestlib`加到luaL_openlibs会打开的标准库列表中，这个列表在文件linit.c中。
 
 
 参考：
