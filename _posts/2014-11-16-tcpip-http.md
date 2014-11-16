@@ -7,7 +7,7 @@ categories: network-programming
 tags: network-programming
 ---
 
-最近入手一本[陈硕大牛](http://blog.csdn.net/solstice)编写《Linux 多线程服务端编程：使用 muduo C++ 网络库》，打算学习下服务器编程相关知识，就再温习了下《TCP/IP详解》中有关TCP/IP和HTTP协议的相关知识，在这简单小结下。完整笔记版本可查看[TCPIP.xmind](https://github.com/gitzx/notes/tree/master/network_programming)。
+最近入手一本[陈硕大牛](http://blog.csdn.net/solstice)编写《Linux 多线程服务端编程：使用 muduo C++ 网络库》，打算系统学习下服务器编程相关知识，就再温习了下《TCP/IP详解》中有关TCP/IP和HTTP协议的相关知识，在这简单小结下。完整笔记版本可查看[TCPIP.xmind](https://github.com/gitzx/notes/tree/master/network_programming)。
 
 ###TCP/IP协议###
 
