@@ -26,6 +26,10 @@ cocos2d-x3.x的“cocos2d-x-3.3beta0\external\lua\luasocket”目录自带有lua
 luasocket分为两部分：一部分是C核心，为TCP、UDP传输层提供支持；另一部分是lua模块，主要是为SMTP、HTTP、FTP协议和上层应用接口提供支持。
 
 	{% highlight C++ %}
+	 //查询版本
+	socket = require("socket")
+	print(socket._VERSION)  //LuaSocket 2.0.2
+
 	//URL简单使用
 	url = require("socket.url")
 	parsed_url = url.parse("http://www.example.com/cgilua/index.lua?a=2#there")
