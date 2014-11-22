@@ -64,7 +64,7 @@ luasocket分为两部分：一部分是C核心，为TCP、UDP传输层提供支�
 	mesgt = {
 	  headers = {
 	    to = "hello <cocos2dx@163.com>",
-	    cc = '"lua" <cocos2dx@126.com>',
+	    cc = "lua <cocos2dx@126.com>",
 	    subject = "My first message"
 	  },
 	  body = "I hope this works."
