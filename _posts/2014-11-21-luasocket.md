@@ -55,16 +55,16 @@ luasocket分为两部分：一部分是C核心，为TCP、UDP传输层提供支�
 	
 	//smtp
 	local smtp = require("socket.smtp")
-	from = "<luasocket@example.com>"
+	from = "<luasocket@163.com>"
 	rcpt = {
-	  "<fulano@example.com>",
-	  "<beltrano@example.com>",
-	  "<sicrano@example.com>"
+	  "<hellolua@163.com>",
+	  "<hellolua@126.com>",
+	  "<hellolua@qq.com>"
 	}
 	mesgt = {
 	  headers = {
-	    to = "Fulano da Silva <fulano@example.com>",
-	    cc = '"Beltrano F. Nunes" <beltrano@example.com>',
+	    to = "hello <cocos2dx@163.com>",
+	    cc = '"lua" <cocos2dx@126.com>',
 	    subject = "My first message"
 	  },
 	  body = "I hope this works."
