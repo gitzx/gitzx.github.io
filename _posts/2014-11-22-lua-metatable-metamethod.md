@@ -48,11 +48,11 @@ table可以作为任何值的元表，如多个table共享一个元表、作为�
 
 下面对这些元方法进行简单示例，实际的行为已经硬编码在解释器中，且效率更高。提取对象中元方法的表达式为`metatable(obj)[event]`,可以理解为`rawget(getmetatable(obj) or {}, event)`。对于lua的二元操作，可以使用`getbinhandler`函数：
 
-	{% hightlight lua %}
+	{% highlight lua %}
 	function getbinhandler(op1, op2, event)
 		return metatable(op1)[event] or metatable(op2)[evetn]
 	end
-	{% endhightlight %}
+	{% endhighlight %}
 
 ###算术类元方法###
 
