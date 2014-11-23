@@ -56,7 +56,7 @@ table可以作为任何值的元表，如多个table共享一个元表、作为�
 
 ###算术类元方法###
 
-	{% highlight lua %}
+	{% highlight C++ %}
 	-- unm 取反操作
 	function unm_event(op)
 		local o = tonumber(op)
@@ -197,7 +197,7 @@ table可以作为任何值的元表，如多个table共享一个元表、作为�
 
 ###关系类元方法###
 
-	{% highlight lua %}
+	{% highlight C++ %}
 	-- eq 相等操作
 	function eq_event(op1, op2)
 		if type(op1)=="number" and type(op2)=="number" then
@@ -254,7 +254,7 @@ table可以作为任何值的元表，如多个table共享一个元表、作为�
 
 ###table访问的元方法###
 
-	{% hightlight lua %}
+	{% hightlight C++ %}
 	-- index 访问table[key]
 	function gettable_event(table, key)
 		local h
