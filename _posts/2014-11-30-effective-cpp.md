@@ -7,7 +7,7 @@ categories: c++
 tags: c++
 ---
 
-花了一个月时间断断续续把《effective C++》这边书又过了一遍，用xmind把52个条款整理了下，完整版可以查看[effective_cpp.xmind](https://github.com/gitzx/notes/tree/master/cpp).
+花了一个月时间断断续续把《effective C++》又过了一遍，用xmind把52个条款整理了下，便于以后经常回顾。完整版可以查看[effective_cpp.xmind](https://github.com/gitzx/notes/tree/master/cpp).
 
 相关整理如下：
 
