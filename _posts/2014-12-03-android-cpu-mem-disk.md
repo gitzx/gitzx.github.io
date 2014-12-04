@@ -19,21 +19,21 @@ tags: android
 
 CPU时间包括：
 
-- 系统时间sy(System time)
+- 系统时间sy(System time)：CPU在内核运行的时间
 
-- 用户时间us(User time)
+- 用户时间us(User time)：CPU执行用户进程的时间
 
-- 空闲时间id(Idle time)
+- 空闲时间id(Idle time)：系统处于空闲期的时间
 
-- 等待时间wa(Waiting time)
+- 等待时间wa(Waiting time):CPU在等待IO所花费的时间
 
-- Nice时间ni(Nice time)
+- Nice时间ni(Nice time)：系统调整进程优先级所花费的时间
 
-- 硬中断处理时间hi(Hard Irq time)
+- 硬中断处理时间hi(Hard Irq time)：系统硬件中断所花费时间
 
-- 软中断时间si(Soft Irq time)
+- 软中断时间si(Soft Irq time)：系统处理软件中断所花费时间
 
-- 丢失时间st(Steal time)
+- 丢失时间st(Steal time)：被强制等待虚拟CPU的时间
 
 CPU占用率主要关心系统态占用率(sys)、
 用户态占用率(user)和空闲态占用率(idle)，CPU占用率的计算公式如下：
@@ -57,6 +57,104 @@ CPU占用率主要关心系统态占用率(sys)、
 	{% endhighlight %}
 
 为了保证CPU占用率稳定在用户自定义的占用率附近，需要准确确定“一段时间”值。
+
+具体实现的主要代码如下：
+
+	{% highlight java %}
+ 	//读取文件获取CPU使用率信息
+ 	public static CPUInfo getCpuTime() {
+		CPUInfo cInfo = null;
+		long[] cpuTime = new long[Config.CPU_TIME_NUM];
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					new FileInputStream("/proc/stat")), 1000);
+			String info = reader.readLine();
+			reader.close();
+			info = info.replaceAll("\\s+", " ");
+			String[] cpuInfo = info.split(" ");
+			for (int i = 1; i < Config.CPU_TIME_NUM + 1; i++) {
+				cpuTime[i - 1] = Long.parseLong(cpuInfo[i]);
+			}
+
+			long totalTime = 0;
+			for (int i = 0; i < Config.CPU_TIME_NUM; i++) {
+				totalTime += cpuTime[i];
+			}
+			cInfo = new CPUInfo(totalTime, totalTime - cpuTime[Config.CPU_IDLE_INDEX]);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return cInfo;
+	}
+	//获取CPU占用率
+	public double getCPUUSageRatio(CPUInfo oldCpuInfo) {
+		if (oldCpuInfo.getBusyCPUTime() == this.getBusyCPUTime()) {
+			return 0;
+		} else {
+			return (this.getBusyCPUTime() - oldCpuInfo.getBusyCPUTime())
+					/ (double) (this.getTotalCPUTime() - oldCpuInfo
+							.getTotalCPUTime());
+		}
+	}
+
+	//设置CPU占用率调控按钮事件处理函数
+	private void setCPUButtonEvent() {		
+		Button showCpuButton = (Button)findViewById(R.id.showCpu);
+		showCpuButton.setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+				intent.putExtra("cpuRatio",
+						Integer.parseInt(cpuRatioEditText.getText().toString()));
+				intent.setClass(MainActivity.this, CPUActivity.class);
+				startActivity(intent);
+			}
+		});
+		//设置CPU占用率调控按钮事件处理函数
+		Button setCpuButton = (Button) findViewById(R.id.setCpu);
+		setCpuButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				final int setRatio = Integer.parseInt(cpuRatioEditText
+						.getText().toString());
+				cpuRatio = setRatio / 100.0;
+				if (sleepTime < 0) {
+					sleepTime = 50 - (int) (cpuRatio * 50);
+					//开启的线程数等于CPU核心的个数
+					for (int i = 0; i < cpuNewValue.getCoreNum(); i++) {
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								CPUInfo coldValue;
+								CPUInfo cnewValue;
+								coldValue = Util.getCpuTime();
+								while (true) {
+									cnewValue = Util.getCpuTime();
+									if (cnewValue.getCPUUSageRatio(coldValue) > cpuRatio) {
+										try {
+											Log.d("sleepTime",String.valueOf(sleepTime));
+											coldValue = cnewValue;
+											Thread.sleep(sleepTime);
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									} else {
+										coldValue = cnewValue;
+									}
+								}
+							}
+						}).start();
+					}
+				} else {
+					sleepTime = 50 - (int) (cpuRatio * 50);
+				}
+			}
+		});
+	}
+	 {% endhighlight %}
 
 ###内存占用率模拟###
 
@@ -87,7 +185,7 @@ CPU占用率主要关心系统态占用率(sys)、
 
 ![](/assets/blog_pic/mmap.PNG)
 
-在这我们使用Android NDK来实现对内存占用的模拟，底层C代码简化如下：
+在这我们使用Android NDK来实现对内存占用的模拟，底层C代码allocateMem.c简化如下：
 
 	{% highlight C++ %}
 	JNIEXPORT void JNICALL Java_com_netease_AllocateMemory_allocateMem
@@ -106,6 +204,14 @@ CPU占用率主要关心系统态占用率(sys)、
 		}
 	}
 	{% endhighlight %}
+
+Android.mk文件如下：
+	
+	LOCAL_PATH := $(call my-dir)
+	include $(CLEAR_VARS)
+	LOCAL_MODULE    := memManage
+	LOCAL_SRC_FILES := allocateMem.c 
+	include $(BUILD_SHARED_LIBRARY)
 
 生成动态链接库文件.so文件后，上层即可实现调用：
 
@@ -126,6 +232,112 @@ CPU占用率主要关心系统态占用率(sys)、
 
 （2）向存储空间内读写文件实现存储空间占用模拟
 
+向存储空间写文件的主要代码如下：
+
+	{% highlight java %}
+	//向存储空间写文件
+	public boolean writeToSdCard(String fileName, long fileSize) {	
+		fillSize = getFileSize(fileName);
+		System.out.println(fillSize);
+		try {
+			// 判断是否有挂载sdcard
+			if (Environment.getExternalStorageState().equals(
+					Environment.MEDIA_MOUNTED)) {
+				// 得到sdcar文件目录
+				File dir = Environment.getExternalStorageDirectory();
+				File file = new File(dir, fileName);
+				if (fileSize > 0) {
+					FileOutputStream fos = new FileOutputStream(file, true);
+					int number = (int) (fileSize / Config.MAX_FILE_SIZE);
+					int left = (int) (fileSize % Config.MAX_FILE_SIZE);
+					byte[] fill = new byte[Config.MAX_FILE_SIZE];
+					for (int i = 0; i < number; i++) {
+						fos.write(fill);
+						fos.flush();
+					}
+					fill = new byte[left];
+					fos.write(fill);
+					fos.flush();
+					fos.close();
+				} else {
+					if (fileSize + fillSize < 0) {
+						return false;
+					} else {
+						FileOutputStream fos = new FileOutputStream(file);
+						int number = (int) ((fileSize + fillSize) / Config.MAX_FILE_SIZE);
+						int left = (int) ((fileSize + fillSize) % Config.MAX_FILE_SIZE);
+						byte[] fill = new byte[Config.MAX_FILE_SIZE];
+						for (int i = 0; i < number; i++) {
+							fos.write(fill);
+							fos.flush();
+						}
+						fill = new byte[left];
+						fos.write(fill);
+						fos.flush();
+						fos.close();
+					}
+				}
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	{% endhighlight %}
+
+###网络上下行速率模拟###
+
+网络上下行速率模拟方法：
+
+（1）获取网络上下行速率(TrafficStats类)
+
+（2）利用hook和函数拦截进行上下行速率模拟
+
+（3）或使用netfilter框架，流入和流出的信息进行细化控制，实现上下行速率模拟
+
+网络上下行速率和带宽的主要代码如下：
+
+	{% highlight java %}
+	public FlowInfo() {
+		upStreamSize = TrafficStats.getTotalTxBytes();
+		downStreamSize = TrafficStats.getTotalRxBytes();
+		systemTime = System.currentTimeMillis();
+	}
+
+	public double getUpBandWidth(FlowInfo oldFlowInfo) {
+		return (this.upStreamSize - oldFlowInfo.getUpStreamSize())
+				/ ((this.systemTime - oldFlowInfo.getSystemTime()) / 1000.0 * 1024.0);
+	}
+	
+	public double getDownBandWidth(FlowInfo oldFlowInfo){
+		return (this.downStreamSize - oldFlowInfo.getDownStreamSize())
+				/ ((this.systemTime - oldFlowInfo.getSystemTime()) / 1000.0 * 1024.0);
+	}
+	{% endhighlight %}
+
+对于第二个方法，类似于在windows系统上拦截应用层的ws2_32.dll中的winsock或spi，还没有具体实现，简单思路如下：
+
+so注入（inject）和挂钩（hook）：[libinject代码（ARM）](http://bbs.pediy.com/showthread.php?t=141355)
+
+（1）在目标进程中分配内存，用来写shellcode和参数
+
+（2）往目标进程中写入shellcode, shellcode调用dlopen来载入我们的库
+
+（3）运行目标进程中的shellcode
+
+函数截获:
+
+（1）挂钩相关进程(网络或渲染Surfaceflinger)
+
+（2）找到共享库中的函数
+
+（3）装载.so文件
+
+（4）函数重定向
+
+（5）获取数据
 
 
 
