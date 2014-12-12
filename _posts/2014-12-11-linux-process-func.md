@@ -29,9 +29,25 @@ tags: network-programming
 	pid_t getppid(void); //返回调用进程的父进程ID
 	uid_t getuid(void);  //返回调用进程的实际用户ID
 	uid_t geteuid(void); //返回调用进程的有效用户ID
-	gid_t getgit(void); //返回调用进程的实际组ID
-	gid_t getegit(void); //返回调用进程的有效组ID
+	gid_t getgid(void); //返回调用进程的实际组ID
+	gid_t getegid(void); //返回调用进程的有效组ID
 	{% endhighlight %}
+
+设置进程标识符的函数如下：
+
+	{% highlight C++ %}
+	#include <sys/types.h>
+	#include <unistd.h>
+	int setuid(uid_t uid);  //设置实际用户ID
+	int seteuid(uid_t uid); //设置的有效用户ID
+	int setgid(gid_t gid); //设置实际组ID
+	int setegid(gid_t gid); //设置有效组ID
+	//交换实际用户ID和有效用户ID的值
+	int setreuid(uid_t uid, uid_t uid) 
+	//交换实际组ID和有效组ID的值
+	int setregid(gid_t gid,gid_t gid) 
+	{% endhighlight %}
+
 
 ###进程终止###
 
@@ -149,8 +165,91 @@ vfork函数和fork函数的区别如下：
 
 ###wait和waitpid函数###
 
+wait和waitpid函数的作用如下：
+
+（1）阻塞(如果其所有子进程都还在运行)；
+
+（2）带子进程的终止状态立即返回(如果一个子进程已经终止，正等待父进程存取其终止状态)；
+
+（3）出错立即返回(如果它没有任何子进程)。
+
+	{% highlight C++ %}
+	#include <sys/types.h>
+	#include <sys/wait.h>
+	pid_t wait(int *statloc);
+	pid_t waitpid(pid_t pid, int *statloc, int options);
+	{% endhighlight %}
+
+wait和waitpid函数的区别如下：
+
+（1）在一个子进程终止前，wait使其调用者阻塞，而waitpid有一个选择项，可使调用者不阻塞；
+
+（2）waitpid并不等待第一个终止的子进程，有若干个选择项，可以控制它等待的进程。
+
+	pid==-1 等待任一子进程，此时waitpid和wait等效；
+	pid>0 等待其进程ID和pid相等的子进程；
+	pid==0 等待其组ID等于调用进程的组ID的任一子进程；
+	pid<-1 等待其组ID等有pid的绝对值的任一子进程。
+
+
+###exec函数###
+
+当进程调用一种exec函数时，该进程完全由新程序替代，调用exec并不创建新进程，因此进程ID并未改变。exec函数只是用另一个新程序替换了当前进程的正文、数据、堆和栈段。
+
+	{% highlight C++ %}
+	#include <unistd.h>
+	char **environ;
+	int execl (const char *path, const char *arg0, ..., (char*)0);
+	int execlp(const char *file, const char *arg0, ..., (char*)0);
+	int execle(const char *path, const char *arg0, ..., (char*)0, char *const envp[]);
+	int execv (const char *path, char *const argv[]);
+	int execvp(cosnt char *file, char *const argv[]);
+	int execve(const char *path, char *const argv[], char *const envp[]);
+	{% endhighlight %}
+
+例如，执行ps au例子：
+	
+	{% highlight C++ %}
+	#include <unistd.h>
+	#include <stdio.h>
+	#include <stdlib.h>
+	int main()
+	{
+		printf("Running ps with execlp\n");
+		execlp("ps", "ps", "au", (char*)0);
+		printf("ps Done");
+		exit(0);
+	}
+	{% endhighlight %}
+
+###system函数###
+
+system不属于操作系统界面而属于shell界面，system的函数原型如下:
+
+	{% highlight C++ %}
+	#include <stdlib.h>
+	int system(const char *string);
+	{% endhighlight %}
+
+执行system的小例子：
+	{% highlight C++ %}
+	#include <stdlib.h>
+	#include <stdio.h>
+	int main()
+	{
+		printf("Running ps with system\n");
+		//ps进程结束后才返回，才能继续执行下面的代码
+		system("ps au");// 1
+		printf("ps Done\n");
+		exit(0);
+	}
+	{% endhighlight %}
+
+
 
 
 参考：
 
-[一个fork的面试题](http://coolshell.cn/articles/7965.html)
+[一个fork题](http://coolshell.cn/articles/7965.html)
+
+[Linux启动新进程的几种方法及比较](http://blog.csdn.net/ljianhui/article/details/10089345)
