@@ -209,7 +209,8 @@ jump_pre_code所对应的汇编指令如下：
 	{% highlight C++ %}	
 	int (*my_lua_call)(lua_State *, int, int) = NULL;  
 	int (*my_luaL_loadstring)(lua_State*, const char *) =NULL;  
-	void my_lua_pushstring (lua_State *L, const char* str);//目标进程lua_pushstring的hook函数，程序调用lua_pushstring时会先调用它  
+	//目标进程lua_pushstring的hook函数，调用lua_pushstring时会先调用它 
+	void my_lua_pushstring (lua_State *L, const char* str); 
 	{  
 	    int (*orig_lua_isuserdata)(lua_State *L, int idx);  
 		//得到原函数 
