@@ -75,7 +75,7 @@ libinject中有两个主要功能（寻找函数地址和调用函数），函�
 
 so的地址是通过分析/proc/pid/maps文件得到的。 Maps文件如下：
 
-![](/assets/blog_pic/so_address.png)
+![](/assets/blog_pic/so_address.PNG)
 
 在arm处理器下，执行函数的代码如下：
 
@@ -261,7 +261,7 @@ jump_pre_code所对应的汇编指令如下：
 
 （3）查找所需挂钩游戏的so文件，可以通过两种方式，一种是解压apk文件查看lib目录下的so文件，另一种是使用命令“cat /proc/PID/maps”查看。如图显示了部分so文件：
 
-![](/assets/blog_pic/so_address.png)
+![](/assets/blog_pic/so_address.PNG)
 
 （4）保存执行hijack命令，如下图所示，其中776是《刀塔传奇》的进程ID。
 
