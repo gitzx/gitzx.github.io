@@ -1,5 +1,5 @@
 ---
-date: 2014-2-11 11:11:30+00:00
+date: 2015-2-11 11:11:30+00:00
 layout: post
 title: Android下的挂钩(hook)和代码注入(inject)
 thread: 97
