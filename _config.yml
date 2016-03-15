@@ -1,4 +1,4 @@
-markdown: rdiscount
+markdown: kramdown
 permalink: /:title/
 url: http://gitzx.github.io
 name: www.gitzx.com 
