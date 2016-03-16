@@ -88,4 +88,5 @@ tags: design_pattern
 4. 虽然在系统中使用继承是没有问题的，但是由于抽象化角色和具体化角色需要独立变化，设计要求需要独立管理这两者。
 
 
+
 参考： [设计模式-----桥接模式Bridge Pattern](http://www.cnblogs.com/houleixx/archive/2008/02/23/1078877.html)
