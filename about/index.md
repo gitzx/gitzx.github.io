@@ -8,9 +8,9 @@ comments: no
 
 ----
 
-###联系方式###
+### 联系方式 ###
 
-网站：[www.gitzx.com](http://www.gitzx.com/)
+网站：[www.etanote.com](http://www.etanote.com/)
 
 邮箱：[{{ site.email }}](mailto:{{ site.email }})
 
