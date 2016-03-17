@@ -89,4 +89,5 @@ tags: design_pattern
 
 
 
+
 参考： [设计模式-----桥接模式Bridge Pattern](http://www.cnblogs.com/houleixx/archive/2008/02/23/1078877.html)
