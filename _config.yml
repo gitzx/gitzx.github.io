@@ -4,10 +4,10 @@ url: http://gitzx.github.io
 name: www.etanote.com 
 author: gitzx
 email: gitzx@foxmail.com
-duoshuo: gitzx
+duoshuo: etanote
 cnzz: 
 github: http://github.com/gitzx
 pygments: true
 safe: true
-paginate: 15
+paginate: 20
 about: "不积跬步，无以至千里 <br /><br /><br />"
