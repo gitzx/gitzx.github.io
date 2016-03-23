@@ -5,4 +5,4 @@ comments: yes
 thread: 616
 ---
 
-欢迎来到gitzx的博客！
+欢迎来到[www.etanote.com](http://www.etanote.com/)！
