@@ -1,7 +1,7 @@
 ---
 date: 2016-3-23 15:25:30+00:00
 layout: post
-title: 状态模式
+title: 策略模式
 thread: 119
 categories: design_pattern
 tags: design_pattern
