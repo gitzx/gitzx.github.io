@@ -90,5 +90,75 @@ tags: design_pattern
 
 ### 观察者模式拉模型一般实现 ###
 
+	{% highlight java %}
+	//Observer
+	public interface Observer
+	{
+		public void update(Subject subject);
+	}
+	//ConcreteObserver
+	public class ConcreteObserver implements Observer
+	{
+		private String observerState;
+		public void update(Subject subject)
+		{
+			observerState = ((ConcreteSubject)subject).getState();
+			//业务逻辑
+			System.out.println("newState: " + observerState);
+		}
+	}
+	//Subject
+	public interface Subject
+	{
+		public void attach(Observer observer);
+		public void detach(Observer observer);
+		void notifyObserver();
+	}
+	//ConcreteSubject
+	public class ConcreteSubject implements Subject
+	{
+		private String state;
+		private List<Observer> list = new ArrayList<Observer>();
+		//注册观察者对象
+		public void attach(Observer observer)
+		{
+			list.add(observer);
+		}
+		//删除观察者对象
+		public void detach(Observer observer)
+		{
+			list.remove(observer);
+		}
+		//通知观察者对象
+		public void notifyObserver()
+		{
+			for(Observer observer:list)
+			{
+				observer.update(this);
+			}
+		}
+		public String getState()
+		{
+			return state;
+		}
+	}
+	//Client
+	public class Client
+	{
+		public static void main(String[] args)
+		{
+			Observer observer = new ConcreteObserver();
+			Subject subject = new ConcreteSubject();
+			subject.attach(observer);
+			subject.notifyObserver(); 
+		}
+	}
+	{% endhighlight %}
 
+
+### java中Observable类和Observer接口对观察者模式支持 ###
+
+使用`java.util.Observable`和`java.util.Observer`可以方便的实现观察者模式。一个Observable对象可以有一个或多个观察者，一个Observable实例改变后，调用Observable的notifyObservers方法的应用程序会通过调用观察者的update方法来通知观察者该实例已经改变。
+
+主要的方法有：`notifyObservers()` , `notifyObservers(java.lang.Object)` , `Observer.update(java.util.Observable, java.lang.Object)`
 
