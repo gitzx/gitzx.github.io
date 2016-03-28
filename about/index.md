@@ -12,7 +12,7 @@ comments: no
 
 网站：[www.etanote.com](http://www.etanote.com/)
 
-
+邮箱：[{{ site.email }}](mailto:{{ site.email }})
 
 ----
 
