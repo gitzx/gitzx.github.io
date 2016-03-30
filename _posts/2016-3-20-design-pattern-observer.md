@@ -160,5 +160,56 @@ tags: design_pattern
 
 使用`java.util.Observable`和`java.util.Observer`可以方便的实现观察者模式。一个Observable对象可以有一个或多个观察者，一个Observable实例改变后，调用Observable的notifyObservers方法的应用程序会通过调用观察者的update方法来通知观察者该实例已经改变。
 
-主要的方法有：`notifyObservers()` , `notifyObservers(java.lang.Object)` , `Observer.update(java.util.Observable, java.lang.Object)`
+主要的方法有：`notifyObservers()` , `notifyObservers(java.lang.Object)` , `Observer.update(java.util.Observable, java.lang.Object)`, `setChanged()`
 
+1. 创建被观察者类，继承自java.util.Observable类；
+
+2. 创建观察者类，实现了java.util.Observer接口；
+
+一般实现如下：
+
+	{% highlight java %}
+	//被观察者
+	import java.util.Observable;
+	public class Subject extends Observable
+	{
+		private String state;
+		public String getState()
+		{
+			return state;
+		}
+		public void setState(String state)
+		{
+			this.state = state;
+			setChanged();
+			notifyObserver();
+		}
+	}
+	//观察者
+	import java.util.Observable;
+	import java.util.Observer;
+	public class ConcreteObserver implements Observer
+	{
+		public void update(Observable observable, Object arg)
+		{
+			Subject subject = (Subject)observable;
+			System.out.println("State :" + subject.getState());
+		}
+	}
+	//client
+	public class Client
+	{
+		public static void main(String[] args)
+		{
+			Subject subject = new Subject();
+			Subject.addObserver(new ConcreteObserver);
+			Subject.setState("on");
+			Subject.setState("off");
+		}
+	}
+	{% endhighlight %}
+
+
+### 适用场景 ###
+
+涉及到一对一或一对多的交互场景都可以使用观察者模式。
