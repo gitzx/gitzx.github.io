@@ -3,8 +3,8 @@ date: 2016-3-25 19:30:30+00:00
 layout: post
 title: Leetcode中数组类题目小结(Easy部分)
 thread: 120
-categories: leetcode
-tags: leetcode
+categories: algorithm
+tags: algorithm
 ---
 
 平时空闲时刷leetcode，缺少系统性的归纳和总结。在这先小结下Leetcode中Array部分中的简单题型。目前包括的题目有：
