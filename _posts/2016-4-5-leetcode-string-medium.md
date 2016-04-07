@@ -43,6 +43,61 @@ Given "25525511135",
 
 return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)
 
+	{% highlight java %}
+	public Lit<String> restoreIpAddresses(String s)
+	{
+		ArrayList<ArrayList<String>> result=new ArrayList<ArrayList<String>>();
+		ArrayList<String> list=new ArrayList<String>();
+		dfs(result,s,0,list);
+		ArrayList<String> finalResult=new ArrayList<String>();
+		for(ArrayList<String> arrayList:result)
+		{
+			StringBuilder sb=new StringBuilder();
+			for(String str:arrayList)
+			{
+				sb.append(str+".");
+			}
+			sb.setLength(sb.length()-1);
+			finalResult.add(sb.toString());
+		}
+	}
+	public void dfs(ArrayList<ArrayList<String>> result,String s,int start,ArrayList<String> t)
+	{
+		if(t.size()>=4&&start!=s.length)
+		{
+			return;
+		}
+		if((t.size()+s.length()-start+1)<4)
+		{
+			return;
+		}
+		if(t.size()==4&&start==s.length())
+		{
+			ArrayList<String> temp = new ArrayList<String>(t);
+			result.add(temp);
+			return;
+		}
+		for(int i=1;i<4;i++)
+		{
+			if(start+i>s.length())
+			{
+				break;
+			}
+			String sub=s.subString(start,start+i);
+			if(i>1&&s.charAt(start)=='0')
+			{
+				break;
+			}
+			if(Integer.valueOf(sub)>255)
+			{
+				break;
+			}
+			t.add(sub);
+			dfs(result,s,start+i,t);
+			t.remove(t.size()-1);
+		}
+	}
+	{% endhighlight %}
 
 ### [Group Anagrams](https://leetcode.com/problems/anagrams/) ###
 
@@ -60,6 +115,29 @@ Note:
 For the return value, each inner list's elements must follow the lexicographic order.
 All inputs will be in lower-case.
 
+	{% highlight java %}
+	public List<List<String>> groupAnagrams(String[] strs)
+	{
+		if(strs==null||strs.length==0)
+		{
+			return new ArrayList<List<String>>();
+		}
+		Map<String,List<String>> map=new HashMap<String,List<String>>();
+		for(String s:strs)
+		{
+			char[] ca=s.toCharArray();
+			Arrays.sort(ca);
+			String keyStr=String.valueOf(ca);
+			if(!map.containsKey(keyStr))
+			{
+				map.put(keyStr,new ArrayList<String>());
+			}
+			map.get(keyStr).add(s);
+		}
+		return new ArrayList<List<String>>(map.values());
+	}
+	{% endhighlight %}
+
 
 ### [Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) ###
 
@@ -75,6 +153,54 @@ Some examples:
 " 3+5 / 2 " = 5
 Note: Do not use the eval built-in library function.
 
+	{% highlight java %}
+	//逆波兰序
+	public int baseCalculatorII(String s)
+	{
+		int len = s.length();
+		if(s==null || len==0)
+		{
+			return 0;
+		}
+		Stack<Integer> stack=new Stack<Integer>();
+		int num = 0;
+		char sign = '+';
+		for(int i=0;i<len;i++)
+		{
+			if(Character.isDigit(s.charAt(i)))
+			{
+				num=num*10+s.charAt(i)-'0';
+			}
+			if((!Character.isDigit(s.charAt(i))&&s.charAt(i)!='')||i==len-1)
+			{
+				if(sign=='+')
+				{
+					stack.push(num);
+				}
+				else if(sign=='-')
+				{
+					stack.push(-num);
+				}
+				else if(sign=='*')
+				{
+					stack.push(stack.pop()*num);
+				}
+				else if(sing=='/')
+				{
+					stack.push(stack.pop()/num);
+				}
+				sign=s.charAt(i);
+				num=0;
+			}
+		}
+		int result = 0;
+		for(int i:stack)
+		{
+			result+=i;
+		}
+		return result;
+	}
+	{% endhighlight %}
 
 ### [Decode Ways](https://leetcode.com/problems/decode-ways/) ###
 
