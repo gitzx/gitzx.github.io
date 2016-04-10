@@ -186,15 +186,95 @@ Note:
 Given n will always be valid.
 Try to do this in one pass.
 
+	{% highlight java %}
+	public ListNode removeNthNodeFromEndOfList(ListNode head, int n)
+	{
+		ListNode start= new ListNode(0);
+		ListNode slow=start, fast=start;
+		slow.next=head;
+		fast.next=head;
+		for(int i=0;i<n;i++)
+		{
+			fast=fast.next;
+		}
+		while(fast!=null)
+		{
+			slow=slow.next;
+			fast=fast.next;
+		}
+		slow.next=slow.next.next;
+		return start.next;
+	}
+	{% endhighlight %}
+
 ### [Delete Node in a Linked List](https://leetcode.com/problems/delete-node-in-a-linked-list/) ###
 
 Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.
 
 Supposed the linked list is 1 -> 2 -> 3 -> 4 and you are given the third node with value 3, the linked list should become 1 -> 2 -> 4 after calling your function.
 
+	{% highlight java %}
+	public void deleteNode(ListNode node)
+	{
+		if(node==null)
+		{
+			return;
+		}
+		node.val=node.next.val;
+		node.next=node.next.next;
+	}
+	{% endhighlight %}
+
 ### [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) ###
 
 Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+	
+	//solution1   recursive
+	public ListNode MergeTwoLists(ListNode l1,ListNode l2)
+	{
+		if(l1==null)
+		{
+			return l2;
+		}
+		if(l2==null)
+		{
+			return l1;
+		}
+		ListNode mergeHead;
+		if(l1.val<l2.val)
+		{
+			mergeHead=l1;
+			mergeHead.next=MergeTwoLists(l1.next,l2);
+		}
+		else
+		{
+			mergeHead=l2;
+			mergeHead.next=MergeTwoLists(l1,l2.next);
+		}
+		return mergeHead;
+	}
+	//solution 2
+	public ListNode MergeTwoLists(ListNode l1,ListNode l2)
+	{
+		ListNode mergeHead = new ListNode(0);
+		while(l1!=null&&l2!=null)
+		{
+			if(l1.val<l2.val)
+			{
+				mergeHead.next=l1;
+				l1=l1.next;
+			}
+			else 
+			{
+				mergeHead.next=l2;
+				l2=l2.next;
+			}
+			mergeHead=mergeHead.next;
+		}
+		mergeHead.next=l1?l1:l2;
+		return mergeHead;
+	}
+	{% endhighlight %}
 
 ### [Remove Duplicates from Sorted List](https://leetcode.com/problems/remove-duplicates-from-sorted-list/) ###
 
@@ -204,6 +284,38 @@ For example,
 Given 1->1->2, return 1->2.
 Given 1->1->2->3->3, return 1->2->3.
 
+	{% highlight java %}
+	//solution 1 recursive
+	public ListNode deleteDuplicates(ListNode head)
+	{
+		if(head==null||head.next==null)
+		{
+			head.next=deleteDuplicates(head.next);
+		}
+		return head.val==head.next.val?head.next:head;
+	}
+	//solution 2
+	public ListNode deleteDuplicates(ListNode head)
+	{
+		ListNode tempHead = head;
+		while(tempHead!=null)
+		{
+			if(tempHead.next==null)
+			{
+				break;
+			}
+			if(tempHead.val==tempHead.next.val)
+			{
+				tempHead.next=tempHead.next.next;
+			}
+			else
+			{
+				tempHead=tempHead.next;
+			}
+		}
+		return head;
+	}
+	{% endhighlight %}
 
 ### [Remove Linked List Elements](https://leetcode.com/problems/remove-linked-list-elements/) ###
 
@@ -213,9 +325,81 @@ Example
 Given: 1 --> 2 --> 6 --> 3 --> 4 --> 5 --> 6, val = 6
 Return: 1 --> 2 --> 3 --> 4 --> 5
 
+	{% highlight java %}
+	//solution 1 recursive
+	public ListNode removeElements(ListNode head, int val)
+	{
+		if(head==null)
+		{
+			return null;
+		}
+		head.next=removeElements(head.next,val);
+		return head.val==val?head.next:head;
+	}
+	//solution 2
+	public ListNode removeElements(ListNode head,int val)
+	{
+		ListNode tempHead=head;
+		while(tempHead!=null&&tempHead.next!=null)
+		{
+			if(tempHead.val==tempHead.val)
+			{
+				tempHead.next=tempHead.next.next;
+			}
+			else
+			{
+				tempHead=tempHead.next;
+			}
+		}
+		return head;
+	}
+	{% endhighlight %}
+
 ### [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/) ###
 
 Given a singly linked list, determine if it is a palindrome.
 
 Follow up:
 Could you do it in O(n) time and O(1) space?
+
+	{% highlight java %}
+	public bool isPalindromLinkedList(ListNode head)
+	{
+		if(head==null||head.next=null)
+		{
+			return true;
+		}
+		ListNode slow = head;
+		ListNode fast = head;
+		while(fast.next!=null&&fast.next.next!=null)
+		{
+			slow=slow.next;
+			fast=fast.next.next;
+		}
+		slow.next=reverseList(slow.next);
+		slow=slow.next;
+		while(slow!=null)
+		{
+			if(head.val!=slow.val)
+			{
+				return false;
+			}
+			head=head.next;
+			slow=slow.next;
+		}
+		return true;
+	}
+	public listNode reverseList(ListNode head)
+	{
+		ListNode pre;
+		ListNode next;
+		while(head!=null)
+		{
+			next=head.next;
+			head.next=pre;
+			pre=head;
+			head=next;
+		}
+		return pre;
+	}
+	{% endhighlight %}
