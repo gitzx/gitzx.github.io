@@ -12,7 +12,7 @@ comments: no
 
 网站：[www.etanote.com](http://www.etanote.com/)
 
-GitHub: [http://github.com/gitzx](http://github.com/gitzx)
+GitHub : [http://github.com/{{ site.github }}](http://github.com/{{ site.github }})
 
 邮箱：[{{ site.email }}](mailto:{{ site.email }})
 
