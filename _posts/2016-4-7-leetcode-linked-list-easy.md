@@ -5,7 +5,6 @@ title: Leetcode中链表类题目小结(Easy部分)
 thread: 123
 categories: algorithm
 tags: algorithm
-
 ---
 
 这篇小结下Leetcode中Linked List的Easy部分的题型，目前已有的题目有：
@@ -229,7 +228,8 @@ Supposed the linked list is 1 -> 2 -> 3 -> 4 and you are given the third node wi
 ### [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) ###
 
 Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
-	
+
+	{% highlight java %}
 	//solution1   recursive
 	public ListNode MergeTwoLists(ListNode l1,ListNode l2)
 	{
