@@ -107,6 +107,25 @@ The right subtree of a node contains only nodes with keys greater than the node'
 
 Both the left and right subtrees must also be binary search trees.
 
+	{% highlight java %}
+	public boolean isValidBST(TreeNode root)
+	{
+		return isValidBST(root,Long.MIN_VALUE,Long.MAX_VALUE);
+	}
+	public boolean isValidBST(TreeNode root,long minVal,long maxVal)
+	{
+		if(root==null)
+		{
+			return true;
+		}
+		if(root.val>=maxVal||root.val<=minVal)
+		{
+			return false;
+		}
+		return isValidBST(root.left,minVal,root.val)&&
+			isValidBST(root.right,root.val,maxVal);
+	}
+	{% endhighlight %}
 
 ### [Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) ###
 
@@ -237,6 +256,32 @@ The root-to-leaf path 1->3 represents the number 13.
 
 Return the sum = 12 + 13 = 25.
 
+	{% highlight java %}
+	public int sumNumbers(TreeNode root)
+	{
+		if(root==null)
+		{
+			return 0;
+		}
+		return dfs(root,0,0);
+	}
+	public int dfs(TreeNode node,int num,int sum)
+	{
+		if(node==null)
+		{
+			return sum;
+		}
+		num=num*10+node.val;
+		if(node.left==null&&node.righ==null)
+		{
+			sum+=num;
+			return sum;
+		}
+		sum=dfs(node.left,num,sum)+dfs(node.right,num,sum);
+		return sum;
+	}
+	{% endhighlight %}
+
 
 ### [Populating Next Right Pointers in Each Node](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/) ###
 
@@ -349,6 +394,40 @@ return
 	   [5,8,4,5]
 	]
 
+	{% highlight java %}
+	public List<ArrayList<Integer>> pathSum(TreeNode root, int sum)
+	{
+		ArrayList<ArrayList<Integer>> result=new ArrayList<ArrayList<Integer>>();
+		if(root==null)
+		{
+			return result;
+		}
+		List<Integer> currentResult=new ArrayList<Integer>();
+		currentResult.add(root.val);
+		dfs(root,sum-root.val,result,currentResult);
+		return result;
+	}
+	public void dfs(TreeNode t,int sum,ArrayList<ArrayList<Integer>> result
+		ArrayList<Integer> currentResult)
+		{
+			if(t.left==null&&t.right==null&&sum==0)
+			{
+				result.add(new ArrayList<Integer>(currentResult));
+			}
+			if(t.left!=null)
+			{
+				currentResult.add(t.left.val);
+				dfs(t.left,sum-t.left.val,result,currentResult);
+				currentResult.remove(currentResult.size()-1);
+			}
+			if(t.right!=null)
+			{
+				currentResult.add(t.right.val);
+				dfs(t.right,sum-t.right.val,result,currentResult);
+				currentResult.remove(currentResult.size()-1);
+			}
+		}
+	{% endhighlight %}
 
 ### [Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) ###
 
