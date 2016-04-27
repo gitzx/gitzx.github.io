@@ -137,6 +137,34 @@ You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
 Follow up:
 What if the BST is modified (insert/delete operations) often and you need to find the kth smallest frequently? How would you optimize the kthSmallest routine?
 
+	{% highlight java %}
+	public int kthSmallest(TreeNode root,int k)
+	{
+		Stack<TreeNode> stack=new Stack<TreeNode>();
+		TreeNode p=root;
+		int result =0;
+		while(!stack.isEmpty()||p!=null)
+		{
+			if(p!=null)
+			{
+				stack.push(p);
+				p=p.left;
+			}
+			else
+			{
+				TreeNode t=stack.pop();
+				k--;
+				if(k==0)
+				{
+					result=t.val;
+				}
+				p=t.right;
+			}
+		}
+		return result;
+	}
+	{% endhighlight %}
+
 ### [House Robber III](https://leetcode.com/problems/house-robber-iii/) ###
 
 The thief has found himself a new place for his thievery again. There is only one entrance to this area, called the "root." Besides the root, each house has one and only one parent house. After a tour, the smart thief realized that "all houses in this place forms a binary tree". It will automatically contact the police if two directly-linked houses were broken into on the same night.
@@ -171,6 +199,50 @@ Definition of a complete binary tree from Wikipedia:
 
 In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.
 
+	{% highlight java %}
+	public int countNodes(TreeNode root) {
+	    if(root==null)
+	    {
+	    	return 0;
+	    }
+	    int left = getLeftHeight(root)+1;    
+	    int right = getRightHeight(root)+1;
+	    if(left==right)
+	    {
+	        return (2<<(left-1))-1;
+	    }
+	    else
+	    {
+	        return countNodes(root.left)+countNodes(root.right)+1;
+	    }
+	}
+	public int getLeftHeight(TreeNode n){
+	    if(n==null)
+	    {
+	    	return 0;
+	    }
+	    int height=0;
+	    while(n.left!=null)
+	    {
+	        height++;
+	        n = n.left;
+	    }
+	    return height;
+	}
+	public int getRightHeight(TreeNode n){
+	    if(n==null) 
+	    {
+	    	return 0;
+	    }
+	    int height=0;
+	    while(n.right!=null)
+	    {
+	        height++;
+	        n = n.right;
+	    }
+	    return height;
+	}
+	{% endhighlight %}
 
 ### [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) ###
 
@@ -347,6 +419,7 @@ The flattened tree should look like:
 	            \
 	             6
 
+.
 
 	{% highlight java %}
 	//solution 1 recursive
@@ -393,6 +466,8 @@ return
 	   [5,4,11,2],
 	   [5,8,4,5]
 	]
+
+.
 
 	{% highlight java %}
 	public List<ArrayList<Integer>> pathSum(TreeNode root, int sum)
