@@ -122,8 +122,7 @@ Both the left and right subtrees must also be binary search trees.
 		{
 			return false;
 		}
-		return isValidBST(root.left,minVal,root.val)&&
-			isValidBST(root.right,root.val,maxVal);
+		return isValidBST(root.left,minVal,root.val)&&isValidBST(root.right,root.val,maxVal);
 	}
 	{% endhighlight %}
 
@@ -482,26 +481,25 @@ return
 		dfs(root,sum-root.val,result,currentResult);
 		return result;
 	}
-	public void dfs(TreeNode t,int sum,ArrayList<ArrayList<Integer>> result
-		ArrayList<Integer> currentResult)
+	public void dfs(TreeNode t,int sum,ArrayList<ArrayList<Integer>> result,ArrayList<Integer> currentResult)
+	{
+		if(t.left==null&&t.right==null&&sum==0)
 		{
-			if(t.left==null&&t.right==null&&sum==0)
-			{
-				result.add(new ArrayList<Integer>(currentResult));
-			}
-			if(t.left!=null)
-			{
-				currentResult.add(t.left.val);
-				dfs(t.left,sum-t.left.val,result,currentResult);
-				currentResult.remove(currentResult.size()-1);
-			}
-			if(t.right!=null)
-			{
-				currentResult.add(t.right.val);
-				dfs(t.right,sum-t.right.val,result,currentResult);
-				currentResult.remove(currentResult.size()-1);
-			}
+			result.add(new ArrayList<Integer>(currentResult));
 		}
+		if(t.left!=null)
+		{
+			currentResult.add(t.left.val);
+			dfs(t.left,sum-t.left.val,result,currentResult);
+			currentResult.remove(currentResult.size()-1);
+		}
+		if(t.right!=null)
+		{
+			currentResult.add(t.right.val);
+			dfs(t.right,sum-t.right.val,result,currentResult);
+			currentResult.remove(currentResult.size()-1);
+		}
+	}
 	{% endhighlight %}
 
 ### [Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) ###
