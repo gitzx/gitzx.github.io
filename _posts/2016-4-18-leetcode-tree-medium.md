@@ -418,7 +418,7 @@ The flattened tree should look like:
 	            \
 	             6
 
-.
+实现如下：
 
 	{% highlight java %}
 	//solution 1 recursive
@@ -466,7 +466,7 @@ return
 	   [5,8,4,5]
 	]
 
-.
+实现如下：
 
 	{% highlight java %}
 	public List<ArrayList<Integer>> pathSum(TreeNode root, int sum)
