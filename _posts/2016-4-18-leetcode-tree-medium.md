@@ -64,6 +64,27 @@ Given n = 3, there are a total of 5 unique BST's.
 	   2     1         2                 3
 
 
+实现如下：
+
+	{% highlight java %}
+	//dynamic
+	public int numTrees(int n)
+	{
+		int[] count = new int[n+1];
+		count[0]=1;
+		count[1]=1;
+		for(int i=2;i<=n;i++)
+		{
+			for(int j=0;j<=i-1;j++)
+			{
+				count[i]=count[i]+count[j]*count[i-j-1];
+			}
+		}
+		return count[n];
+	}
+	{% endhighlight %}
+
+
 ### [Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/) ###
 
 Given n, generate all structurally unique BST's (binary search trees) that store values 1...n.
@@ -78,6 +99,41 @@ Given n = 3, your program should return all 5 unique BST's shown below.
 	   2     1         2                 3
 
 
+实现如下：
+
+	{% highlight java %}
+	//recursive
+	public List<TreeNode> generateTrees(int n)
+	{
+		return generateTrees(1,n);
+	}
+	public List<TreeNode> generateTrees(int start,int end)
+	{
+		List<TreeNode> list=new LinkedList<TreeNode>();
+		if(start>end)
+		{
+			list.add(null);
+			return list;
+		}
+		for(int i=start;i<=end;i++)
+		{
+			List<TreeNode> lefts=generateTrees(start,i-1);
+			List<TreeNode> rights=generateTrees(i+1,end);
+			for(TreeNode left:lefts)
+			{
+				for(TreeNode right:rights)
+				{
+					TreeNode node = new TreeNode(i);
+					node.left=left;
+					node.right=right;
+					list.add(node);
+				}
+			}
+		}
+		return list;
+	}
+	{% endhighlight %}
+	
 ### [Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)###
 
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
@@ -200,7 +256,7 @@ In a complete binary tree every level, except possibly the last, is completely f
 
 	{% highlight java %}
 	public int countNodes(TreeNode root) {
-	    if(root==null)
+		if(root==null)
 	    {
 	    	return 0;
 	    }
