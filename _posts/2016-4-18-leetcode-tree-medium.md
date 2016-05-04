@@ -150,6 +150,24 @@ According to the definition of LCA on Wikipedia: “The lowest common ancestor i
 
 For example, the lowest common ancestor (LCA) of nodes 5 and 1 is 3. Another example is LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.
 
+	{% highlight java %}
+	//solution 1 recursive
+	public TreeNode lowestCommonAncestor(TreeNode root,TreeNode p,TreeNode q)
+	{
+		if(root==null||root==p||root==q)
+		{
+			return root;
+		}
+		TreeNode left=lowestCommonAncestor(root.left,p,q);
+		TreeNode right=lowestCommonAncestor(root.right,p,q);
+		if(left!=null&&right!=null)
+		{
+			return root;
+		}
+		return left==null?right:left;
+	}
+	{% endhighlight %}
+
 
 ### [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) ###
 
@@ -314,6 +332,40 @@ Given the following binary tree,
 
 You should return [1, 3, 4].
 
+	{% highlight java %}
+	public List<Integer> rightSideView(TreeNode root)
+	{
+		ArrayList<Integer> result=new ArrayList<Integer>();
+		if(root==null)
+		{
+			return result;
+		}
+		LinkedList<TreeNode> queue=new LinkedList<TreeNode>();
+		queue.add(root);
+		while(queue.size()>0)
+		{
+			int size=queue.size();
+			for(int i=0;i<size;i++)
+			{
+				TreeNode top=queue.remove();
+				if(i==0)
+				{
+					result.add(top.val);
+				}
+				if(top.right!=null)
+				{
+					queue.add(top.right);
+				}
+				if(top.left!=null)
+				{
+					queue.add(top.left);
+				}
+			}
+		}
+		return result;
+	}
+	{% endhighlight %}
+
 
 ### [Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) ###
 
@@ -323,6 +375,40 @@ Calling next() will return the next smallest number in the BST.
 
 Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
 
+	{% highlight java %}
+	public class BSTIterator
+	{
+		Stack<TreeNode> stack;
+		public BSTIterator(TreeNode root)
+		{
+			stack=new Stack<TreeNode>();
+			while(root!=null)
+			{
+				stack.push(root);
+				root=root.left;
+			}
+		}
+		public boolean hasNext()
+		{
+			return !stack.isEmpty();
+		}
+		public int next()
+		{
+			TreeNode node = stack.pop();
+			int result = node.val;
+			if(node.right!=null)
+			{
+				node=node.right;
+				while(node!=null)
+				{
+					stack.push(node);
+					node=node.left;
+				}
+			}
+			return result;
+		}
+	}
+	{% endhighlight %}
 
 ### [Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/) ###
 
@@ -587,6 +673,38 @@ Given preorder and inorder traversal of a tree, construct the binary tree.
 Note:
 You may assume that duplicates do not exist in the tree.
 
+	{% highlight java %}
+	public TreeNode buildTree(int[] preorder,int[] inorder)
+	{
+		int preStart=0;
+		int preEnd=preorder.length-1;
+		int inStart=0;
+		int inEnd=inorder.length-1;
+		return construct(preorder,preStart,preEnd,inorder,inStart,inEnd);
+	}
+	public TreeNode construct(int[] preorder,int preStart,int preEnd,
+		int[] inorder,int inStart,int inEnd)
+	{
+		if(preStart>preEnd||inStart>inEnd)
+		{
+			return null;
+		}
+		int val=preorder[preStart];
+		TreeNode root=new TreeNode(val);
+		int k=0;
+		for(int i=0;i<inorder.length;i++)
+		{
+			if(val==inorder[i])
+			{
+				k=i;
+				break;
+			}
+		}
+		root.left=construct(preorder,preStart+1,preStart+(k-			inStart),inorder,inStart,k-1);
+		root.right=construct(preorder,preStart+(k-inStart)+1,preEnd,inorder,k			+1,inEnd);
+		return root;
+	}
+	{% endhighlight %}
 
 ### [Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/) ###
 
@@ -595,6 +713,40 @@ Given inorder and postorder traversal of a tree, construct the binary tree.
 Note:
 You may assume that duplicates do not exist in the tree.
 
+	{% highlight java %}
+	public TreeNode buildTree(int[] inorder,int[] postorder)
+	{
+		int inStart=0;
+		int inEnd=inorder.length-1;
+		int postStart=0;
+		int postEnd=postorder.length-1;
+		return construct(inorder,inStart,inEnd,postorder,postStart,postEnd);
+	}
+	public TreeNode construct(int[] inorder,int inStart,int inEnd,
+		int[] postorder,int postStart,int postEnd)
+		{
+			if(inStart>inEnd||postStart>postEnd)
+			{
+				return null;
+			}
+			int val=postorder[postEnd];
+			TreeNode root=new TreeNode(val);
+			int k=0;
+			for(int i=0;i<inorder.length;i++)
+			{
+				if(inorder[i]==val)
+				{
+					k=i;
+					break;
+				}
+			}
+			root.left=construct(inorder,inStart,k-1,postorder,postStart,
+				postStart+k-(inStart+1));
+			root.right=construct(inorder,k+1,inEnd,postorder,
+				postStart+k-inStart,postEnd-1);
+			return root;
+		}
+	{% endhighlight %}
 
 ### [Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/) ###
 
