@@ -644,9 +644,9 @@ return
 	}
 	{% endhighlight %}
 
-### [Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) ###
+### [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) ###
 
-Given a binary tree, return the zigzag level order traversal of its nodes' values. (ie, from left to right, then right to left for the next level and alternate between).
+Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
 
 For example:
 Given binary tree {3,9,20,#,#,15,7},
@@ -657,14 +657,51 @@ Given binary tree {3,9,20,#,#,15,7},
 	    /  \
 	   15   7
 
-return its zigzag level order traversal as:
+return its level order traversal as:
 
 	[
 	  [3],
-	  [20,9],
+	  [9,20],
 	  [15,7]
 	]
 
+代码实现如下：
+
+	{% highlight java %}
+	public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root)
+	{
+		ArrayList<ArrayList<Integer>> al=new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> nodeValues=new ArrayList<Integer>();
+		if(root==null)
+		{
+			return al;
+		}
+		LinkedList<TreeNode> current=new LinkedList<TreeNode>();
+		LinkedList<TreeNode> next=new LinkedList<TreeNode>();
+		current.add(root);
+		while(!current.isEmpty())
+		{
+			TreeNode node =current.remove();
+			if(node.left!=null)
+			{
+				next.add(node.left);
+			}
+			if(node.right!=null)
+			{
+				next.add(node.right);
+			}
+			nodeValues.add(node.val);
+			if(current.isEmpty())
+			{
+				current=next;
+				next=new LinkedList<TreeNode>();
+				al.add(nodeValues);
+				nodeValues=new ArrayList();
+			}
+		}
+		return al;
+	}
+	{% endhighlight %}
 
 ### [Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/) ###
 
