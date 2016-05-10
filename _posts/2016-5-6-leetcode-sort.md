@@ -92,6 +92,70 @@ Sort a linked list using insertion sort.
 Sort a linked list in O(n log n) time using constant space complexity.
 
 
+Sort a linked list in O(n log n) time using constant space complexity.
+
+	{% highlight java %}
+	public ListNode sortList(ListNode head)
+	{
+		if(head==null||head.next==null)
+		{
+			return head;
+		}
+		ListNode fast=head;
+		ListNode slow =head;
+		while(fast.next!=null&&fast.next.next!=null)
+		{
+			fast=fast.next.next;
+			slow=slow.next;
+		}
+		fast=slow.next;
+		slow.next=null;
+		ListNode l1=sortList(head);
+		ListNode l2=sortList(fast);
+		return merge(l1,l2);
+	}
+	public ListNode merge(ListNode l1,ListNode l2)
+	{
+		if(l1==null)
+		{
+			return l2;
+		}
+		else if(l2==null)
+		{
+			return l1;
+		}
+		else if(l1==null&&l2==null)
+		{
+			return null;
+		}
+		ListNode dummy=new ListNode();
+		ListNode p=dummy;
+		while(l1!=null&&l2!=null)
+		{
+			if(l1.val<l2.val)
+			{
+				p.next=l1;
+				l1=l1.next;
+			}
+			else
+			{
+				p.next=l2;
+				l2=l2.next;
+			}
+			p=p.next;
+		}
+		if(l1!=null)
+		{
+			p.next=l1;
+		}
+		else if(l2!=null)
+		{
+			p.next=l2;
+		}
+		return dummy.next;
+	}
+	{% endhighlight %}
+
 ### [Largest Number](https://leetcode.com/problems/largest-number/) ###
 
 Given a list of non negative integers, arrange them such that they form the largest number.
