@@ -107,6 +107,34 @@ Here, we will use the integers 0, 1, and 2 to represent the color red, white, an
 Note:
 You are not suppose to use the library's sort function for this problem.
 
+	{% highlight java %}
+	public void sortColors(int[] nums)
+	{
+		if(nums==null||nums.length<2)
+		{
+			return;
+		}
+		int[] countArray=new int[3];
+		for(int i=0;i<nums.length;i++)
+		{
+			countArray[nums[i]]++;
+		}
+		int j=0;
+		int k=0;
+		while(j<=2)
+		{
+			if(countArray[j]!=0)
+			{
+				nums[k++]=j;
+				countArray[j]--;
+			}
+			else
+			{
+				j++;
+			}
+		}
+	}
+	{% endhighlight %}
 
 ### [H-Index](https://leetcode.com/problems/h-index/) ###
 
@@ -201,7 +229,36 @@ For example, given [3, 30, 34, 5, 9], the largest formed number is 9534330.
 
 Note: The result may be very large, so you need to return a string instead of an integer.
 
-
+	{% highlight java %}
+	public String largestNumbers(int[] nums)
+	{
+		String[] strs=new String[nums.length];
+		for(int i=0;i<nums.length;i++)
+		{
+			strs[i]=String.valueOf(nums[i]);
+		}
+		Arrays.sort(strs,new ComParator<String>()
+			{
+				public int compare(String s1,String s2)
+				{
+					String leftRight=s1+s2;
+					String rightLeft=s2+s1;
+					return -leftRight.compareTo(rightLeft);
+				}
+			});
+		StringBuilder sb=new StringBuilder();
+		for(String s:strs)
+		{
+			sb.append(s);
+		}
+		while(sb.charAt(0)=='0'&&sb.length()>1)
+		{
+			sb.deleteCharAt(0);
+		}
+		return sb.toString();
+	}
+	{% endhighlight %}
+	
 ### [Merge Intervals](https://leetcode.com/problems/merge-intervals/) ###
 
 Given a collection of intervals, merge all overlapping intervals.
@@ -210,7 +267,52 @@ For example,
 Given [1,3],[2,6],[8,10],[15,18],
 return [1,6],[8,10],[15,18].
 
-
+	{% highlight java %}
+	class Interval
+	{
+		int start;
+		int end;
+		Interval()
+		{
+			start=0;
+			end=0;
+		}
+		Interval(int s,int e)
+		{
+			start=s;
+			end=e;
+		}
+	}
+	public class Solution
+	{
+		public List<Interval> merge(List<Interval> intervals)
+		{
+			Collections.sort(intervals,new Comparator<Interval>()
+				{
+					public int compare(Interval obj0,Interval obj1)
+					{
+						return obj0.start-obj1.start;
+					}
+				});
+			List<Interval> ret=new ArrayList<Interval>();
+			Interval pre=null;
+			for(Interval inter:intervals)
+			{
+				if(pre==null||inter.start>pre.end)
+				{
+					ret.add(inter);
+					pre=inter;
+				}
+				else if(inter.end>pre.end)
+				{
+					pre.end=inter.end;
+				}
+			}
+			return ret;
+		}
+	}
+	{% endhighlight %}
+	
 ### [Maximum Gap](https://leetcode.com/problems/maximum-gap/) ###
 
 Given an unsorted array, find the maximum difference between the successive elements in its sorted form.
