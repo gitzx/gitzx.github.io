@@ -229,6 +229,19 @@ Given an array of integers, every element appears three times except for one. Fi
 Note:
 Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
 
+	{% highlight java %}
+	public int singleNumber(int[] A)
+	{
+		int ones=0, twos=0;
+		for(int i=0;i<A.length;i++)
+		{
+			ones=(ones^A[i])&(~twos);
+			twos=(twos^A[i])&(~ones);
+		}
+		return ones;
+	}
+	{% endhighlight %}
+
 ### [Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/) ###
 
 All DNA is composed of a series of nucleotides abbreviated as A, C, G, and T, for example: "ACGAATTCCG". When studying DNA, it is sometimes useful to identify repeated sequences within the DNA.
