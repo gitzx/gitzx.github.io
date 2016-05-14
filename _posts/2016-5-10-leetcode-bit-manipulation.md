@@ -38,6 +38,8 @@ tags: algorithm
 
 14. Counting Bits
 
+15. Power of Three
+
 
 ### [Power of Four](https://leetcode.com/problems/power-of-four/) ###
 
@@ -48,6 +50,16 @@ Given num = 16, return true. Given num = 5, return false.
 
 Follow up: Could you solve it without loops/recursion?
 
+	{% highlight java %}
+	public boolean isPowerOfFour(int n)
+	{
+		if(n<=0)
+		{
+			return false;
+		}
+		return (n&(n-1))==0&&(n-1)%3==0;
+	}
+	{% endhighlight %}
 
 ### [Reverse Bits](https://leetcode.com/problems/reverse-bits/) ###
 
@@ -60,12 +72,59 @@ If this function is called many times, how would you optimize it?
 
 Related problem: Reverse Integer
 
+	{% highlight java %}
+	public int reverseBits(int n)
+	{
+		int m=0;
+		for(int i=0;i<32;i++,n>>=1)
+		{
+			m<<=1;
+			m|=n&1;
+		}
+		return m;
+	}
+	{% endhighlight %}
+
 ### [Majority Element](https://leetcode.com/problems/majority-element/) ###
 
 Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
 
 You may assume that the array is non-empty and the majority element always exist in the array.
 
+	{% highlight java %}
+	//solution 1
+	public int majorityElement(int[] nums)
+	{
+		if(nums.length==1)
+		{
+			return nums[0];
+		}
+		Arrays.sort(nums);
+		return nums[nums.length/2];
+	}
+	//solution 2
+	public int majorityElement(int[] nums)
+	{
+		int result=0,count=0;
+		for(int i=0;i<nums.length;i++)
+		{
+			if(count==0)
+			{
+				result=nums[i];
+				count=1;
+			}
+			else if(result==nums[i])
+			{
+				count++;
+			}
+			else
+			{
+				count--;
+			}
+		}
+		return result;
+	}
+	{% endhighlight %}
 
 ### [Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/) ###
 
@@ -73,9 +132,40 @@ Write a function that takes an unsigned integer and returns the number of ’1' 
 
 For example, the 32-bit integer ’11' has binary representation 00000000000000000000000000001011, so the function should return 3.
 
+	{% highlight java %}
+	public int hammingWeight(int n)
+	{
+		int count=0;
+		for(int i=1;i<33;i++)
+		{
+			if(getBit(n,i)==true)
+			{
+				count++;
+			}
+		}
+		return count;
+	}
+	public boolean getBit(int n,int i)
+	{
+		return (n&(1<<i))!=0;
+	}
+	{% endhighlight %}
+
 ### [Power of Two](https://leetcode.com/problems/power-of-two/) ###
 
 Given an integer, write a function to determine if it is a power of two.
+
+	{% highlight java %}
+	//Power of 2 menas only one bit of n is '1'
+	public boolean isPowerOfTwo(int n)
+	{
+		if(n<=0)
+		{
+			return false;
+		}
+		return !(n&(n-1));
+	}
+	{% endhighlight %}
 
 ### [Single Number III ](https://leetcode.com/problems/single-number-iii/) ###
 
@@ -95,6 +185,18 @@ Given an array of integers, every element appears twice except for one. Find tha
 
 Note:
 Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+	{% highlight java %}
+	public int singleNumber(int[] A,int n)
+	{
+		int result=0;
+		for(int i=0;i<n;i++)
+		{
+			result^=A[i];
+		}
+		return result;
+	}
+	{% endhighlight %}
 
 ### [Subsets](https://leetcode.com/problems/subsets/) ###
 
@@ -191,6 +293,52 @@ Given nums = [0, 1, 3] return 2.
 Note:
 Your algorithm should run in linear runtime complexity. Could you implement it using only constant extra space complexity?
 
+	{% highlight java %}
+	//solution 1  SUM
+	public int missingNumber(int[] nums)
+	{
+		int len=nums.length;
+		int sum=(0+len)*(len+1)/2;
+		for(int i=0;i<len;i++)
+		{
+			sum-=nums[i];
+		}
+		return sum;
+	}
+	//solution 2 Binary search
+	public int missingNumber(int[] nums)
+	{
+		Arrays.sort(nums);
+		int left=0;
+		int right=nums.length;
+		int mid=(left+right)/2;
+		while(left<right)
+		{
+			mid=(left+right)/2;
+			if(nums[mid]>mid)
+			{
+				right=mid;
+			}
+			else
+			{
+				left=mid+1;
+			}
+		}
+		return left;
+	}
+	//solution 3 XOR
+	public int missingNumber(int[] nums)
+	{
+		int res=nums.length;
+		for(int i=0;i<nums.length;i++)
+		{
+			res^=i;
+			res^=nums[i];
+		}
+		return res;
+	}
+	{% endhighlight %}
+
 ### [Counting Bits](https://leetcode.com/problems/counting-bits/) ###
 
 Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1's in their binary representation and return them as an array.
@@ -203,3 +351,33 @@ Follow up:
 It is very easy to come up with a solution with run time O(n*sizeof(integer)). But can you do it in linear time O(n) /possibly in a single pass?
 Space complexity should be O(n).
 Can you do it like a boss? Do it without using any builtin function like __builtin_popcount in c++ or in any other language.
+
+	{% highlight java %}
+	public int[] countBits(int num)
+	{
+		int[] f = new int[num+1];
+		for(int i=1;i<=num;i++)
+		{
+			f[i]=f[i>>1] +(i&1);
+		}
+		return f;
+	}
+	{% endhighlight %}
+
+### [Power of Three]() ###
+
+Given an integer (signed 32 bits), write a function to check whether it is a power of 3.
+
+	{% highlight java %}
+	public boolean isPowerOfThree(int n)
+	{
+		if(n>1)
+		{
+			while(n%3==0)
+			{
+				n/=3;
+			}
+		}
+		return n==1;
+	}
+	{% endhighlight %}
