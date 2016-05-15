@@ -265,6 +265,29 @@ Given a range [m, n] where 0 <= m <= n <= 2147483647, return the bitwise AND of 
 
 For example, given the range [5, 7], you should return 4.
 
+	{% highlight java %}
+	//solution 1
+	public int rangeBitwiseAnd(int m,int n)
+	{
+		if(m==0)
+		{
+			return 0;
+		}
+		int move=1;
+		while(m!=n)
+		{
+			m>>=1;
+			n>>=1;
+			move<<=1;
+		}
+		return m*move;
+	}
+	//solution 2
+	public int rangeBitwiseAnd(int m,int n)
+	{
+		return (n>m)?(rangeBitwiseAnd(m/2,n/2)<<1):m;
+	}
+	{% endhighlight %}
 
 ### [Maximum Product of Word Lengths](https://leetcode.com/problems/maximum-product-of-word-lengths/) ###
 
