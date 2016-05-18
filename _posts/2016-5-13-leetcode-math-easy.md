@@ -67,12 +67,40 @@ You could also try reversing an integer. However, if you have solved the problem
 
 There is a more generic way of solving this problem.
 
+	{% highlight java %}
+	public boolean isPalindrome(int x)
+	{
+		if(x<0||(x!=0&&x%10==0))
+		{
+			return false;
+		}
+		int rev=0;
+		while(x>rev)
+		{
+			rev=rev*10+x%10;
+			x=x/10;
+		}
+		return (x==rev||x==rev/10);
+	}
+	{% endhighlight %}
 
 ### [Power of Three](https://leetcode.com/problems/power-of-three/) ###
 
 Given an integer, write a function to determine if it is a power of three.
 
-
+	{% highlight java %}
+	public boolean isPowerOfThree(int n)
+	{
+		if(n>1)
+		{
+			while(n%3==0)
+			{
+				n/=3;
+			}
+		}
+		return n==1;
+	}
+	{% endhighlight %}
 
 ### [Ugly Number](https://leetcode.com/problems/ugly-number/) ###
 
@@ -101,6 +129,22 @@ Reverse digits of an integer.
 Example1: x = 123, return 321
 Example2: x = -123, return -321
 
+	{% highlight java %}
+	public int reverse(int x)
+	{
+		long rev=0;
+		while(x!=0)
+		{
+			rev=rev*10+x%10;
+			x=x/10;
+			if(rev>Integer.MAX_VALUE||rev<Integer.MIN_VALUE)
+			{
+				return 0;
+			}
+		}
+		return (int)rev;
+	}
+	{% endhighlight %}
 
 ### [Excel Sheet Column Title](https://leetcode.com/problems/excel-sheet-column-title/) ###
 
@@ -116,7 +160,20 @@ For example:
     27 -> AA
     28 -> AB 
 
-Credits:
+代码如下:
+
+	{% highlight java %}
+	public String convertToTitle(int n)
+	{
+		String ans;
+		while(n>0)
+		{
+			ans=char((n-1)%26+'A')+ans;
+			n=(n-1)/26;
+		}
+		return ans;
+	}
+	{% endhighlight %}
 
 ### [Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/) ###
 
@@ -157,4 +214,16 @@ For example:
     AA -> 27
     AB -> 28 
 
-Credits:
+代码如下:
+
+	{% highlight java %}
+	public int titleToNumber(String s)
+	{
+		int result=0;
+		for(int i=0;i<s.length();i++)
+		{
+			result=result*26+(s.charAt(i)-'A'+1);
+		}
+		return result;
+	}
+	{% endhighlight %}
