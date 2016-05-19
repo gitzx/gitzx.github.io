@@ -110,6 +110,28 @@ Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. For 
 
 Note that 1 is typically treated as an ugly number.
 
+	{% highlight java %}
+	public boolean isUgly(int num)
+	{
+		if(num==1||num==0)
+		{
+			return false;
+		}
+		while(num%2==0)
+		{
+			num=num>>1;
+		}
+		while(num%3==0)
+		{
+			num=num/3;
+		}
+		while(num%5==0)
+		{
+			num=num/5;
+		}
+		return num==1;
+	}
+	{% endhighlight %}
 
 ### [Add Digits](https://leetcode.com/problems/add-digits/) ###
 
@@ -121,6 +143,14 @@ Given num = 38, the process is like: 3 + 8 = 11, 1 + 1 = 2. Since 2 has only one
 
 Follow up:
 Could you do it without any loop/recursion in O(1) runtime?
+
+	{% highlight java %}
+	//digit root problem
+	public int addDigits(int num)
+	{
+		return 1+(num-1)%9;
+	}
+	{% endhighlight %}
 
 ### [Reverse Integer](https://leetcode.com/problems/reverse-integer/) ###
 
@@ -180,6 +210,23 @@ For example:
 Given an integer n, return the number of trailing zeroes in n!.
 
 Note: Your solution should be in logarithmic time complexity.
+
+	{% highlight java %}
+	//2和5  2是充足的
+	public int trailingZeroes(int n)
+	{
+		if(n<0)
+		{
+			return -1;
+		}
+		int count=0;
+		for(long i=5;n/i>=1;i*=5)
+		{
+			count+=n/i;
+		}
+		return count;
+	}
+	{% endhighlight %}
 
 ### [Count Primes](https://leetcode.com/problems/count-primes/) ###
 
