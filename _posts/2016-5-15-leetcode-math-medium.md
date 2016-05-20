@@ -12,7 +12,7 @@ tags: algorithm
 
 1. Perfect Squares 	
 
-2. 	Sqrt(x)
+2. Sqrt(x)
 
 3. Fraction to Recurring Decimal
 
@@ -45,6 +45,43 @@ Implement int sqrt(int x).
 
 Compute and return the square root of x.
 
+	{% highlight java %}
+	//solution 1 Newton method
+	public int sqrt(int x)
+	{
+		long r=x;
+		while(r*r>x)
+		{
+			r=(r+x/r)/2;
+		}
+		return (int)r;
+	}
+	//solution 2 binary search
+	public int sqrt(int x)
+	{
+		if(x==0)
+		{
+			return 0;
+		}
+		int left=1,right=Integer.MAX_VALUE;
+		while(true)
+		{
+			int mid=(right+left)/2;
+			if(mid>x/mid)
+			{
+				right=mid-1;
+			}
+			else
+			{
+				if(mid+1>x/(mid+1))
+				{
+					return mid;
+				}
+				left=mid+1;
+			}
+		}
+	}
+	{% endhighlight %}
 
 ### [Fraction to Recurring Decimal](https://leetcode.com/problems/fraction-to-recurring-decimal/) ###
 
