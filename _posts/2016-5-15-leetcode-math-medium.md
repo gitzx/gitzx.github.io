@@ -145,6 +145,46 @@ Given n = 3.
 
 Implement pow(x, n).
 
+	{% highlight java %}
+	//solution 1 iterative
+	public double myPow(double x,int n)
+	{
+		if(n==0)
+		{
+			return 1;
+		}
+		if(n<0)
+		{
+			n=-n;
+			x=1/x;
+		}
+		double ans=1;
+		while(n>0)
+		{
+			if(n&1)
+			{
+				ans*=x;
+			}
+			x*=x;
+			n>>=1;
+		}
+		return ans;
+	}
+	//solution 2
+	public double myPow(double x,int n)
+	{
+		if(n==0)
+		{
+			return 1;
+		}
+		if(n<0)
+		{
+			n=-n;
+			x=1/x;
+		}
+		return (n%2==0)?myPow(x*x,n/2):x*myPow(x*x,n/2);
+	}
+	{% endhighlight %}
 
 
 ### [Super Ugly Number](https://leetcode.com/problems/super-ugly-number/) ###
