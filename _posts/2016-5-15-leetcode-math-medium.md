@@ -1,5 +1,5 @@
 ---
-date: 2016-5-16 19:03:30+00:00
+date: 2016-5-15 19:03:30+00:00
 layout: post
 title: Leetcode中数字类题目小结（Medium部分）
 thread: 133
@@ -37,6 +37,30 @@ Given a positive integer n, find the least number of perfect square numbers (for
 
 For example, given n = 12, return 3 because 12 = 4 + 4 + 4; given n = 13, return 2 because 13 = 4 + 9.
 
+	{% highlight java %}
+	//solution 1 dp
+	public int numSquares(int n)
+	{
+		int max=(int)Math.sqrt(n);
+		int[] dp=new int[n+1];
+		Arrays.fill(dp,Integer.MAX_VALUE);
+		for(int i=1;i<=n;i++)
+		{
+			for(int j=1;j<=max;j++)
+			{
+				if(i==j*j)
+				{
+					dp[i]=1;
+				}
+				else
+				{
+					dp[i]=Math.min(dp[i],dp[i-j*j]+1);
+				}
+			}
+		}
+		return dp[n];
+	}
+	{% endhighlight %}
 
 ### [Sqrt(x)](https://leetcode.com/problems/sqrtx/) ###
 
@@ -106,6 +130,31 @@ For example, given n = 2, return 1 (2 = 1 + 1); given n = 10, return 36 (10 = 3 
 
 Note: you may assume that n is not less than 2.
 
+	{% highlight java %}
+	public int integerBreak(int n)
+	{
+		if(n==2)
+		{
+			return 1;
+		}
+		else if(n==3)
+		{
+			return 2;
+		}
+		else if(n%3==0)
+		{
+			return (int)Math.pow(3,n/3);
+		}
+		else if(n%3==1)
+		{
+			return 2*2*(int)Math.pow(3,(n-4)/3);
+		}
+		else
+		{
+			return 2*(int)Math.pow(3,n/3);
+		}
+	}
+	{% endhighlight %}
 
 ### [Ugly Number II](https://leetcode.com/problems/ugly-number-ii/) ###
 
@@ -123,6 +172,31 @@ Divide two integers without using multiplication, division and mod operator.
 
 If it is overflow, return MAX_INT.
 
+	{% highlight java %}
+	public int divide(int dividend,int divisor)
+	{
+		if(!divisor||(dividend==INT_MIN&&divisor==-1))
+		{
+			return INT_MAX;
+		}
+		int sign=((dividend<0)^(divisor<0))?-1:1;
+		long long dvd=labs(dividend);
+		long long dvs=labs(divisor);
+		int res=0;
+		while(dvd>=dvs)
+		{
+			long long temp=dvs, multiple=1;
+			while(dvd>=(temp<<1))
+			{
+				temp<<=1;
+				multiple<<=1;
+			}
+			dvd-=temp;
+			res+=multiple;
+		}
+		return sign==1?res:-res;
+	}
+	{% endhighlight %}
 
 ### [Bulb Switcher](https://leetcode.com/problems/bulb-switcher/) ###
 
@@ -133,8 +207,11 @@ Example:
 Given n = 3. 
 
 	At first, the three bulbs are [off, off, off].
+
 	After first round, the three bulbs are [on, on, on].
+
 	After second round, the three bulbs are [on, off, on].
+
 	After third round, the three bulbs are [on, off, off]. 
 	
 	So you should return 1, because there is only one bulb is on.
@@ -145,7 +222,6 @@ Given n = 3.
 
 Implement pow(x, n).
 
-	{% highlight java %}
 	//solution 1 iterative
 	public double myPow(double x,int n)
 	{
@@ -184,8 +260,6 @@ Implement pow(x, n).
 		}
 		return (n%2==0)?myPow(x*x,n/2):x*myPow(x*x,n/2);
 	}
-	{% endhighlight %}
-
 
 ### [Super Ugly Number](https://leetcode.com/problems/super-ugly-number/) ###
 
@@ -218,3 +292,30 @@ We get the following sequence (ie, for n = 3):
 Given n and k, return the kth permutation sequence.
 
 Note: Given n will be between 1 and 9 inclusive.
+
+	{% highlight java %}
+	public String getPermutation(int n,int k)
+	{
+		int pos=0;
+		List<Integer> numbers=new ArrayList<>();
+		int[] factorial=new int[n+1];
+		StringBuilder sb=new StringBuilder();
+		int sum=1;
+		factorial[0]=1;
+		for(int i=1;i<=n;i++)
+		{
+			sum*=i;
+			factorial[i]=sum;
+			numbers.add[i];
+		}
+		k--;
+		for(int i=1;i<=n;i++)
+		{
+			int index=k/factorial[n-i];
+			sb.append(String.valueOf(numbers.get(index)));
+			numbers.remove(index);
+			k-=index*factorial[n-i];
+		}
+		return String.valueOf(sb);
+	}
+	{% endhighlight %}
