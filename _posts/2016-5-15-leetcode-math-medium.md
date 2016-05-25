@@ -216,7 +216,25 @@ Given n = 3.
 	
 	So you should return 1, because there is only one bulb is on.
 
+实现如下：
 
+	{% highlight java %}
+	//solution 1
+	public int bulbSwitch(int n)
+	{
+		return sqrt(n);
+	}
+	//solution 2
+	public int bulbSwitch(int n)
+	{
+		int count=0;
+		for(int i=1;i*i<=n;i++)
+		{
+			++count;
+		}
+		return count;
+	}
+	{% endhighlight %}
 
 ### [Pow(x, n)](https://leetcode.com/problems/powx-n/) ###
 
