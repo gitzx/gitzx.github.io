@@ -46,6 +46,33 @@ Example 2:
 
 Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"]. But it is larger in lexical order.
 
+	{% highlight java %}
+	HashMap<String,PriorityQueue<String>> map=new HashMap<String,PriorityQueue<String>>();
+	LinkedList<String> result=new LinkedList<String>();
+	public List<String> findItinerary(String[][] tickets)
+	{
+		for(String[] ticket:tickets)
+		{
+			if(!map.containsKey(ticket[0]))
+			{
+				PriorityQueue<String> q=new PriorityQueue<String>();
+				map.put(ticket[0],q);
+			}
+			map.get(ticket[0].offer(ticket[1]));
+		}
+		dfs("JFK");
+		return result;
+	}
+	public void dfs(String s)
+	{
+		PriorityQueue<String> q=map.get(s);
+		while(q!=null&&!q.isEmpty())
+		{
+			dfs(q.poll());
+		}
+		return addFirst(s);
+	}
+	{% endhighlight %}
 
 ### [Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/) ###
 
