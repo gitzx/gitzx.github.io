@@ -71,7 +71,7 @@ GLSurfaceView是个View类，类似于android的SurfaceView；GLSurfaceView.Rend
 
 （3）onSurfaceChanged():GLSurfaceView的几何参数发生变化(如尺寸或方向)时调用。
 
-
+	{% highlight java %}
     public void onSurfaceCreated(GL10 glUnused, EGLConfig config)
     {
         glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
@@ -120,6 +120,7 @@ GLSurfaceView是个View类，类似于android的SurfaceView；GLSurfaceView.Rend
         glUniform4f(uColorLocation, 1.0f, 0.0f, 0.0f, 1.0f);
         glDrawArrays(GL_POINTS, 9, 1);
     }
+    {% endhighlight %}
 
 
 
