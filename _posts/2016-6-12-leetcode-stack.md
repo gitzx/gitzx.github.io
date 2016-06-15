@@ -297,6 +297,57 @@ Credits:
 
 Special thanks to @dietpepsi for adding this problem and creating all test cases.
 
+	{% highlight java %}
+	//solution1 diff=outdegree-indegree
+	//非#有2个outdegree和1个indegree
+	//#y有0个outdegree和1个indegree
+	public boolean isValidSerialization(String preorder)
+	{
+		String[] nodes=preorder.split(",");
+		int diff=1;
+		for(String node:nodes)
+		{
+			if(--diff<0)
+			{
+				return false;
+			}
+			if(!node.equals("#"))
+			{
+				diff+=2;
+			}
+		}
+		return diff==0;
+	} 
+	//solution2 stack
+	public boolean isValidSerialization(String preorder)
+	{
+		LinkedList<String> stack=new LinkedList<String>();
+		String[] arr=preorder.split(",");
+		for(int i=0;i<arr.length;i++)
+		{
+			stack.add(arr[i]);
+			while(stack.size()>=3
+				&&stack.get(stack.size()-1).equals("#")
+				&&stack.get(stack.size()-2).equals("#")
+				&&stack.get(stack.size()-3).equals("#"))
+			{
+				stack.remove(stack.size()-1);
+				stack.remove(stack.size()-1);
+				stack.remove(stack.size()-1);
+				stack.add("#");
+			}
+		}
+		if(stack.size()==1&&stack.get(0).equals("#"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	{% endhighlight %}
+
 ### [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) ###
 
 Evaluate the value of an arithmetic expression in Reverse Polish Notation.
@@ -309,6 +360,52 @@ Some examples:
 	  ["4", "13", "5", "/", "+"] -> (4 + (13 / 5)) -> 6
 
 Subscribe to see which companies asked this question
+
+	{% highlight java %}
+	public int evalRPN(String[] tokens)
+	{
+		int returnValue=0;
+		String operators="+-*/";
+		Stack<String> stack=new Stack<String>();
+		for(String t:tokens)
+		{
+			if(!operators.contains(t))
+			{
+				stack.push(t);
+			}
+			else
+			{
+				int a=Integer.valueOf(stack.pop());
+				int b=Integer.valueOf(stack.pop());
+				switch(t)
+				{
+					case "+":
+					{
+						stack.push(String.valueOf(a+b));
+						break;
+					}
+					case "-":
+					{
+						stack.push(String.valueOf(b-a));
+						break;
+					}
+					case "*":
+					{
+						stack.push(String.valueOf(a*b));
+						break;
+					}
+					case "/":
+					{
+						stack.push(String.valueOf(b/a));
+						break;
+					}
+				}
+			}
+		}
+		returnValue=Integer.valueOf(stack.pop());
+		return returnValue;
+	}
+	{% endhighlight %}
 
 ### [Flatten Nested List Iterator](https://leetcode.com/problems/flatten-nested-list-iterator/) ###
 
@@ -328,6 +425,48 @@ Given the list [1,[4,[6]]],
 
 By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6].
 
+	{% highlight java %}
+	public class NestedIterator implements Iterator<Integer>
+	{
+		Stack<NestedInteger> stack=new Stack<NestedInteger>();
+		public NestedIterator(List<NestedInteger> nestedList)
+		{
+			if(nestedList==null)
+			{
+				return;
+			}
+			for(int i=nestedList.size()-1;i>=0;i--)
+			{
+				stack.push(nestedList.get(i));
+			}
+		}
+		public Integer next()
+		{
+			return stack.pop().getInteger();
+		}
+		public boolean hasNext()
+		{
+			while(!stack.isEmpty())
+			{
+				NestedInteger top=stack.peek();
+				if(top.isInteger)
+				{
+					return true;
+				}
+				else
+				{
+					stack.pop();
+					for(int i=top.getList().size()-1;i>=0;i--)
+					{
+						stack.push(top.getList().get(i));
+					}
+				}
+			}
+			return false;
+		}
+	}
+	{% endhighlight %}
+
 ### [Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/) ###
 
 Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical order among all possible results.
@@ -341,3 +480,29 @@ Return "abc"
 Given "cbacdcbc"
 
 Return "acdb"
+
+	{% highlight java %}
+	//solution 1
+	public String removeDuplicateLetters(String s)
+	{
+		int[] cnt=new int[26];
+		int pos=0;
+		for(int i=0;i<s.length();i++)
+		{
+			cnt[s.charAt(i)-'a']++;
+		}
+		for(int i=0;i<s.length();i++)
+		{
+			if(s.charAt(i)<s.charAt(pos))
+			{
+				pos=i;
+			}
+			if(--cnt[s.charAt(i)-'a']==0)
+			{
+				break;
+			}
+		}
+		return s.length()==0?"":s.charAt(pos)+removeDuplicateLetters
+			(s.substring(pos+1).replaceAll("",s.charAt(pos),""));
+	}
+	{% endhighlight %}
