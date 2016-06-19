@@ -71,7 +71,7 @@ tags: design_pattern
 	{% endhighlight %}
 
 
-##＃　适用场景　###
+###　适用场景　###
 
 1. 多个子类具有公共的方法，且逻辑基本相同；
 
