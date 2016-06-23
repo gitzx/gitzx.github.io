@@ -319,6 +319,56 @@ Return
 
 Subscribe to see which companies asked this question
 
+	{% highlight java %}
+	public ArrayList<ArrayList<String>> partition(String s)
+	{
+		ArrayList<ArrayList<String>> result=new ArrayList<ArrayList<String>>();
+		if(s==null)
+		{
+			return result;
+		}
+		ArrayList<String> path=new ArrayList<String>();
+		helper(s,path,0,result);
+		return result;
+	}
+	private void helper(String s,ArrayList<String> path,int pos,
+		ArrayList<ArrayList<String>> result)
+	{
+		if(pos==s.length())
+		{
+			result.add(new ArrayList<String>(path));
+			return;
+		}
+		for(int i=pos;i<s.length();i++)
+		{
+			String prefix=s.substring(pos,i+1);
+			if(!isPalindrome(prefix))
+			{
+				continue;
+			}
+			path.add(prefix);
+			helper(s,path,i+1,result);
+			path.remove(path.size()-1);
+		}
+	
+	}
+	private boolean isPalindrome(String s)
+	{
+		int begin=0;
+		int end=s.length()-1;
+		while(begin<end)
+		{
+			if(s.charAt(begin)!=s.charAt(end))
+			{
+				return false;
+			}
+			begin++;
+			end--;
+		}
+		return true;
+	}
+	{% endhighlight %}
+
 ### [Combinations](https://leetcode.com/problems/combinations/) ###
 
 Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.
@@ -388,6 +438,75 @@ Return ["eat","oath"].
 Note:
 
 You may assume that all inputs are consist of lowercase letters a-z.
+
+	{% highlight java %}
+	//solution1 DFS
+	public List<String> findWords(char[][] bord,String[] words)
+	{
+		ArrayList<String> result=new ArrayList<String>();
+		int m=bord.length;
+		int n=bord[0].length;
+		for(String word:words)
+		{
+			boolean flag=false;
+			for(int i=0;i<m;i++)
+			{
+				for(int j=0;j<n;j++)
+				{
+					char[][] newBoard=new char[m][n];
+					for(int x=0;x<m;x++)
+					{
+						for(int y=0;y<n;y++)
+						{
+							newBoard[x][y]=bord[x][y];
+						}
+						if(dfs(newBoard,word,i,j,0))
+						{
+							flag=true;
+						}
+					}
+				}
+			}
+			if(flag)
+			{
+				result.add(word);
+			}
+		}
+		return result;
+	}
+	public boolean dfs(char[][] board,String word,int i,int j,int k)
+	{
+		int m=board.length;
+		int n=bord[0].length;
+		if(i<0||j<0||i>=m||j>=n||k>word.length()-1)
+		{
+			return false;
+		}
+		if(bord[i][j]==word.charAt(k))
+		{
+			char temp=bord[i][j];
+			bord[i][j]='#';
+			if(k==word.length()-1)
+			{
+				return true;
+			}
+			else if(dfs(board,word,i-1,j,k+1)||
+				dfs(board,word,i+1,j,k+1)||
+				dfs(board,word,i,j-1,k+1)||
+				dfs(board,word,i,j+1,k+1))
+			{
+				board[i][j]=temp
+				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		return false;
+	}
+	//solution2 DFS trie
+	{% endhighlight %}
 
 ### [Word Break II](https://leetcode.com/problems/word-break-ii/) ###
 
