@@ -150,7 +150,79 @@ The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4.
 
 Your algorithm should run in O(n2) complexity.
 
-Follow up: Could you improve it to O(n log n) time complexity?
+Follow up: Could you improve it to O(nlogn) time complexity?
+
+	{% highlight java %}
+	//solution1 dp
+	public int lengthOfLIS(int[] nums)
+	{
+		if(nums==null||nums.length==0)
+		{
+			return 0;
+		}
+		int[] max=new int[nums.length];
+		for(int i=0;i<nums.length;i++)
+		{
+			max[i]=1;
+			for(int j=0;j<i;j++)
+			{
+				if(nums[i]>nums[j])
+				{
+					max[i]=Math.max(max[i],max[j]+1);
+				}
+			}
+		}
+		int result=0;
+		for(int i=0;i<max.length;i++)
+		{
+			if(max[i]>result)
+			{
+				result=max[i];
+			}
+		}
+		return result;
+	}
+	//solution2  O(nlog(n)) put the increasing sequence in a list.
+	public int lengthOfLIS(int[] nums)
+	{
+		if(nums==null||nums.length==0)
+		{
+			return 0;
+		}
+		ArrayList<Integer> list=new ArrayList<Integer>();
+		for(int num:nums)
+		{
+			if(list.size()==0)
+			{
+				list.add(num);
+			}
+			else if(num>list.get(list.size()-1))
+			{
+				list.add(num);
+			}
+			else
+			{
+				int i=0;
+				int j=list.size()-1;
+				while(i<j)
+				{
+					int mid=(i+j)/2;
+					if(list.get(mid)<num)
+					{
+						i=mid+1;
+					}
+					else
+					{
+						j=mid;
+					}
+				}
+				list.set(j,num);
+			}
+		}
+		return list.size();
+	}
+	{% endhighlight %}
+
 
 ### [Maximal Square](https://leetcode.com/problems/maximal-square/) ###
 
@@ -164,6 +236,31 @@ For example, given the following matrix:
 	1 0 0 1 0
 
 Return 4.
+
+	{% highlight java %}
+	public int maximalSquare(int[][] a)
+	{
+		if(a==null||a.length==0||a[0].length==0)
+		{
+			return 0;
+		}
+		int m=a.length,n=a[0].length,result=0;
+		int[][] b=new int[m+1][n+1];
+		for(int i=1;i<=m;i++)
+		{
+			for(int j=1;j<=n;j++)
+			{
+				if(a[i-1][j-1]=='1')
+				{
+					b[i][j]=Math.min(Math.min(b[i][j-1],b[i-1][j-1]),b[i-1][j])+1;
+					result=Math.max(b[i][j],result);
+				}
+			}
+		}
+		return result*result;
+	}
+	{% endhighlight %}
+
 
 ### [House Robber](https://leetcode.com/problems/house-robber/) ###
 
@@ -231,4 +328,49 @@ Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 
 You are climbing a stair case. It takes n steps to reach to the top.
 
 Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+	{% highlight java %}
+	//solution1 arithmetic
+	public int climbStairs(int n)
+	{
+		if(n<=0)
+		{
+			return 0;
+		}
+		if(n==1||n==2)
+		{
+			return n;
+		}
+		int[] mem=new int[n];
+		mem[0]=1;
+		mem[1]=2;
+		for(int i=2;i<n;i++)
+		{
+			mem[i]=mem[i-1]+mem[i-2];
+		}
+		return mem[n-1];
+	}
+	//solution2 dp
+	public int climbStairs(int n)
+	{
+		if(n<=0)
+		{
+			return 0;
+		}
+		if(n==1||n==2)
+		{
+			return n;
+		}
+		int prePreStep=1; //n=1;
+		int preStep=2; //n=2;
+		int result=0;
+		for(int i=3;i<=n;i++)
+		{
+			result=prePreStep+preStep;
+			prePreStep=preStep;
+			preStep=result;
+		}
+		return result;
+	}
+	{% endhighlight %}
 
