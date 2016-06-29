@@ -35,48 +35,12 @@ java中常用数组和java集合框架来存储数据，这篇小结下。
 
 集合实现总结如下：
 
-<table border=”1″>
-<tr>
-<td> Interface </td>
-<td> Hash Table </td>
-<td> Resizable Array </td>
-<td> Balanced Tree </td>
-<td> Linked List </td>
-<td> Hash Table + Linked List </td>
-</tr>
-<tr>
-<td>Set</td>
-<td>HashSet</td>
-<td> </td>
-<td>TreeSet</td>
-<td> </td>
-<td>LinkedHashSet</td>
-</tr>
-<tr>
-<td>List</td>
-<td></td>
-<td>ArrayList</td>
-<td></td>
-<td>LinkedList</td>
-<td></td>
-</tr>
-<tr>
-<td>Deque</td>
-<td></td>
-<td>ArrayDeque</td>
-<td></td>
-<td>LinkedList</td>
-<td></td>
-</tr>
-<tr>
-<td>Map</td>
-<td>HashMap</td>
-<td></td>
-<td>TreeMap</td>
-<td></td>
-<td>LinkedHashMap</td>
-</tr>
-</table>
+Interface | Hash Table | Resizable Array | Balanced Tree | Linked List | Hash Table + Linked List
+:--|:--|:-- |:--  |:--  |:--
+Set | HashSet |   | TreeSet |   | LinkedHashSet 
+List |   | ArrayList |   | 	LinkedList | 
+Deque |   | ArrayDeque |   | ArrayDeque |  
+Map | HashMap |   | TreeMap |   | LinkedHashMap
 
 ### [Arrays](https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html) ###
 
