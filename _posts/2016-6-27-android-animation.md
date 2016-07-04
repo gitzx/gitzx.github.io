@@ -131,7 +131,121 @@ View Animation(视图动画)的xml文件放在res/anim/目录下，Property Anim
 1. onAnimationUpdate() : 动画每帧调用。
 
 
+### View Animation ###
+
+Animation由四种类型组成：
+
+1. alpha ： 渐变透明动画效果；
+
+2. scale ： 渐变尺寸伸缩动画效果；
+
+3. translate ：画面转移位置移动动画效果；
+
+4. rotate ： 画面转移旋转动画效果。
+
+在java源代码中定义相对应的类，可以通过这些类来获取和操作相应的属性：
+
+1. AlphaAnimation
+
+2. ScaleAnimation
+
+3. TranslateAnimation
+
+4. RotateAnimation
+
+### Tween Animation ###
+
+	//res/anim/hyperspace_jump.xml
+	<set xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:shareInterpolator="false">
+	    <scale
+	        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+	        android:fromXScale="1.0"
+	        android:toXScale="1.4"
+	        android:fromYScale="1.0"
+	        android:toYScale="0.6"
+	        android:pivotX="50%"
+	        android:pivotY="50%"
+	        android:fillAfter="false"
+	        android:duration="700" />
+	    <set
+	        android:interpolator="@android:anim/accelerate_interpolator"
+	        android:startOffset="700">
+	        <scale
+	            android:fromXScale="1.4"
+	            android:toXScale="0.0"
+	            android:fromYScale="0.6"
+	            android:toYScale="0.0"
+	            android:pivotX="50%"
+	            android:pivotY="50%"
+	            android:duration="400" />
+	        <rotate
+	            android:fromDegrees="0"
+	            android:toDegrees="-45"
+	            android:toYScale="0.0"
+	            android:pivotX="50%"
+	            android:pivotY="50%"
+	            android:duration="400" />
+	    </set>
+	</set>
+
+
+在java层调用：
+
+	{% highlight java %}
+	ImageView spaceshipImage = (ImageView) findViewById(R.id.spaceshipImage);
+	Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.hyperspace_jump);
+	spaceshipImage.startAnimation(hyperspaceJumpAnimation);
+	{% endhighlight %}
+
+
+Interpolator是有效的改进动画相关效果，如加速、减速、重复、反弹等。Interpolator通过`android:interpolator`来实现。Android系统提供了一些常用的Interpolator，在[Interpolator](https://developer.android.com/reference/android/view/animation/Interpolator.html)子类中。除此之外，我们也可以自定义Interpolator。
+
+Android系统提供的Interpolators有：
+
+1. AccelerateDecelerateInterpolator
+
+2. AccelerateInterpolator
+
+3. AnticipateInterpolator
+
+4. AnticipateOvershootInterpolator
+
+5. BounceInterpolator
+
+6. CycleInterpolator
+
+7. DecelerateInterpolator
+
+8. LinearInterpolator
+
+9. OvershootInterpolator
+
+例如`AccelerateDecelerateInterpolator`,可以通过`@android:anim/accelerate_decelerate_interpolator`来使用。
+
+### Frame Animation ###
+
+	//res/anim/rocket.xml
+	<?xml version="1.0" encoding="utf-8"?>
+	<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:oneshot="false">
+	    <item android:drawable="@drawable/rocket_thrust1" android:duration="200" />
+	    <item android:drawable="@drawable/rocket_thrust2" android:duration="200" />
+	    <item android:drawable="@drawable/rocket_thrust3" android:duration="200" />
+	</animation-list>
+
+
+在java层调用：
+
+	{% highlight java %}
+	ImageView rocketImage = (ImageView) findViewById(R.id.rocket_image);
+	rocketImage.setBackgroundResource(R.drawable.rocket_thrust);
+	rocketAnimation = (AnimationDrawable) rocketImage.getBackground();
+	rocketAnimation.start();
+	{% endhighlight %}
 
 
 
+参考：[Animation Resources](https://developer.android.com/guide/topics/resources/animation-resource.html#Property)
 
+[Animation](https://developer.android.com/reference/android/view/animation/Animation.html?hl=zh-cn)
