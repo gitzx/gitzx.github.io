@@ -10,35 +10,35 @@ tags: c
 
 C语言标准库有各种不同的实现，如glibc和嵌入式linux的uClibc等，不同标准库提供的函数大同小异，最基本的包括有15个头文件：
 
-1. <assert.h>  断言
+1. assert.h  断言
 
-2. <ctype.h>   字符累测试
+2. ctype.h   字符累测试
 
-3. <errno.h>   部分库函数抛出的错误代码
+3. errno.h   部分库函数抛出的错误代码
 
-4. <float.h>   浮点数运算
+4. float.h   浮点数运算
 
-5. <limit.h>   检测整型数据类型值范围
+5. limit.h   检测整型数据类型值范围
 
-6. <locale.h>  本土化
+6. locale.h  本土化
 
-7. <math.h>    数学函数
+7. math.h    数学函数
 
-8. <setjmp.h>   非局部跳转
+8. setjmp.h   非局部跳转
 
-9. <signal.h>   信号
+9. signal.h   信号
 
-10. <stdarg.h>  可变参数表
+10. stdarg.h  可变参数表
 
-11. <stddef.h>  一些常数、变量、类型
+11. stddef.h  一些常数、变量、类型
 
-12. <stdio.h>  输入输出
+12. stdio.h  输入输出
 
-13. <stdlib.h> 常用功能库
+13. stdlib.h 常用功能库
 
-14. <string.h>  字符串函数
+14. string.h  字符串函数
 
-15. <time.h>  时间和日期函数
+15. time.h  时间和日期函数
 
 
 ### assert.h ###
